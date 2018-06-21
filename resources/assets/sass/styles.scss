@@ -5,6 +5,7 @@ $light-grey: #969CA1;
 $contrast-gray: #6b6a66;
 $flat-green: #27C190;
 $bright-green: #72c02c;
+$component-background: #26292d;
 // dark gren color scheme
 //$bg-color: #1C2522;
 $text-color: #063F73;
@@ -17,7 +18,7 @@ $side-padding: 180px;
 $side-margin: 240px;
 $extra-padding: 50px;
 $poster-width: 85px; //170
-$poster-height: 125px; //250
+$poster-height: 180px; //250
 $card-footer-height: 35px;
 $button-primary-color: #3e4e48;
 $button-hover-color: #1C2522;
@@ -155,7 +156,7 @@ hr {
     display: flex;
     flex-wrap: wrap;
     //justify-content: center;
-    align-items: center;
+    //align-items: center;
 }
 
 .block {
@@ -207,6 +208,86 @@ hr {
     border-bottom: 1px solid $contrast-gray;
 }
 
+.day-schedule {
+    margin: 15px;
+    text-align: center;
+}
+
+// TV SHOW COMPONENT
+.tvshow-card {
+    border-radius: 2px;
+    display: inline-block;
+    width: $default-content-width - 300;
+    height: $poster-height;
+    text-align: left;
+    margin: 5px 0;
+    background-color: $component-background;
+    border-right: 3px solid $flat-green;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.16),
+    0 2px 4px 0 rgba(0,0,0,0.12);
+}
+
+.tvshow-cover {
+    display: block;
+    float: left;
+    width: 20%;
+}
+
+.tvshow-info {
+    padding: 15px 0;
+    display: block;
+    float: left;
+    width: 79%;
+}
+
+.tvshow-title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.tvshow-title span {
+    font-size: 17px;
+    color: #5a7068;
+}
+
+.tvshow-cover img {
+    height: $poster-height;
+}
+
+.tvshow-overview {
+    font-size: 15px;
+    padding: 5px 2px;
+}
+
+.tvshow-other {
+    float: left;
+    font-size: 15px;
+    padding: 5px 2px;
+}
+
+.button-follow {
+    float: right;
+    background-color: transparent;
+    border: 1px solid $text-color-contrast;
+    border-radius: 4px;
+    color: $text-color-contrast;
+    padding: 5px 0;
+    margin-top: 15px;
+    margin-right: 15px;
+    width: 110px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button-follow:hover {
+    border: 1px solid $flat-green;
+    color: $flat-green;
+}
 
 // FOOTER
 .footer {

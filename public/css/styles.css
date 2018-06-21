@@ -89,13 +89,13 @@ hr {
 
 .card-box {
   width: 90px;
-  height: 180px;
+  height: 235px;
 }
 
 .card {
   padding: 4px;
   width: 85px;
-  height: 160px;
+  height: 215px;
   text-align: left;
   background-color: #5a7068;
   border-radius: 3px;
@@ -109,7 +109,7 @@ hr {
 
 .card-poster img {
   width: 85px;
-  height: 125px;
+  height: 180px;
 }
 
 .card-poster img:hover {
@@ -132,9 +132,6 @@ hr {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
 }
 
 .block {
@@ -188,6 +185,86 @@ hr {
   font-size: 18px;
   padding: 10px 30px;
   border-bottom: 1px solid #6b6a66;
+}
+
+.day-schedule {
+  margin: 15px;
+  text-align: center;
+}
+
+.tvshow-card {
+  border-radius: 2px;
+  display: inline-block;
+  width: 700px;
+  height: 180px;
+  text-align: left;
+  margin: 5px 0;
+  background-color: #26292d;
+  border-right: 3px solid #27C190;
+  -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+.tvshow-cover {
+  display: block;
+  float: left;
+  width: 20%;
+}
+
+.tvshow-info {
+  padding: 15px 0;
+  display: block;
+  float: left;
+  width: 79%;
+}
+
+.tvshow-title {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.tvshow-title span {
+  font-size: 17px;
+  color: #5a7068;
+}
+
+.tvshow-cover img {
+  height: 180px;
+}
+
+.tvshow-overview {
+  font-size: 15px;
+  padding: 5px 2px;
+}
+
+.tvshow-other {
+  float: left;
+  font-size: 15px;
+  padding: 5px 2px;
+}
+
+.button-follow {
+  float: right;
+  background-color: transparent;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  color: #e5e5e5;
+  padding: 5px 0;
+  margin-top: 15px;
+  margin-right: 15px;
+  width: 110px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button-follow:hover {
+  border: 1px solid #27C190;
+  color: #27C190;
 }
 
 .footer {
