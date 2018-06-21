@@ -1,0 +1,238 @@
+// green/grey color scheme
+//$bg-color: #444F57;
+$bg-color: #14181c;
+$light-grey: #969CA1;
+$contrast-gray: #6b6a66;
+$flat-green: #27C190;
+$bright-green: #72c02c;
+// dark gren color scheme
+//$bg-color: #1C2522;
+$text-color: #063F73;
+$text-color-contrast: #e5e5e5;
+$title-color-contrast: #5a7068;
+$selected-color: #3e4e48;
+$card-color: #ebe7d3;
+$default-content-width: 1000px;
+$side-padding: 180px;
+$side-margin: 240px;
+$extra-padding: 50px;
+$poster-width: 85px; //170
+$poster-height: 125px; //250
+$card-footer-height: 35px;
+$button-primary-color: #3e4e48;
+$button-hover-color: #1C2522;
+
+body {
+    background-color: $bg-color;
+    color: $text-color-contrast;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    //border-top: 2px solid $flat-green;
+}
+
+.content {
+    padding: 0 10px;
+}
+
+hr {
+    border: 0;
+    border-top: 2px solid $contrast-gray;
+    margin: -3px 0 50px 0;
+    padding: 0;
+}
+
+.header {
+    overflow: hidden;
+    background-color: transparent;
+    color: $flat-green;
+    font-size: 30px;
+    padding: 20px 10px 3px 10px;
+    width: $default-content-width;
+    margin: 25px auto 0 auto;
+}
+
+.header a.logo {
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    color: $text-color-contrast;
+}
+
+.header-subtitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: -5px;
+}
+
+.header-links {
+    float: right;
+}
+
+.header-links i {
+    margin-right: 0.25em;
+}
+
+.header-links a {
+    float: left;
+    text-align: center;
+    padding: 7px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-bottom: 2px solid transparent;
+    color: $text-color-contrast;
+    margin: 0 0px -2px 0px;
+}
+
+.header-links a:hover {
+    color: $flat-green;
+    //color: #27C190;
+    border-bottom: 2px solid $flat-green;
+    transition: background-color 0.05s linear;
+}
+
+.header-links a.active {
+    color: $flat-green;
+    border-bottom: 2px solid $flat-green;
+}
+
+.welcome-banner {
+    color: $text-color-contrast;
+    font-size: 35px;
+    text-align: center;
+    margin: 50px 0;
+}
+
+.section-title {
+    color: $text-color-contrast;
+    font-size: 30px;
+    padding: 50px 0;
+    width: $default-content-width;
+    margin: 0 auto;
+}
+
+.card-box {
+    width: 90px; //185
+    height: $poster-height + $card-footer-height + 20;
+}
+
+.card {
+    //box-shadow: 0 4px 6px 0 rgba(0,0,0,0.16),
+    //0 2px 4px 0 rgba(0,0,0,0.12);
+    padding: 4px;
+    width: $poster-width;
+    height: $poster-height + $card-footer-height;
+    text-align: left;
+    background-color: $title-color-contrast;
+    border-radius: 3px;
+}
+
+.card-poster {
+    display: inline-block;
+    float: left;
+    text-align: center;
+}
+.card-poster img {
+    width: $poster-width;
+    height: $poster-height;
+}
+
+.card-poster img:hover {
+    opacity: 0.85;
+    filter: alpha(opacity=85); /* For IE8 and earlier */
+}
+
+.card-footer {
+    width: $poster-width;
+    height: $card-footer-height;
+    color: $text-color-contrast;
+}
+
+/* FLEXBOX */
+
+.block-container {
+    display: flex;
+    flex-wrap: wrap;
+    //justify-content: center;
+    align-items: center;
+}
+
+.block {
+    margin: 15px 10px;
+    /*align-self: center;*/
+}
+
+/* BUTTONS */
+.button-primary {
+    background-color: $flat-green;
+    border-radius: 4px;
+    color: $text-color-contrast;
+    padding: 3px 0;
+    margin-top: 2px;
+    width: $poster-width;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+    float: left;
+}
+.button-primary:hover {
+    background-color: $button-hover-color;
+    transition: background-color 0.05s linear;
+}
+
+.month {
+    width: $default-content-width - 200;
+    margin: 30px auto;
+    padding: 15px;
+    border-radius: 3px;
+    border: 1px solid $contrast-gray;
+}
+.month-header {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 7px 20px;
+    margin-bottom: 20px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: $flat-green;
+ }
+
+.day-header {
+    font-size: 18px;
+    padding: 10px 30px;
+    border-bottom: 1px solid $contrast-gray;
+}
+
+
+// FOOTER
+.footer {
+    position: relative;
+    margin-top: -25px;
+    left: 0;
+    bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    clear: both;
+    text-align: center;
+    font-size: 13px;
+    line-height: 25px;
+    height: 25px;
+    background-color: #ebe7d3;
+    color: #333;
+}
+
+.footer a {
+    color: #382110;
+    text-decoration: underline;
+}
+
+.separator {
+    margin: 0 6px;
+    font-weight: bold;
+    color: #382110;
+}
