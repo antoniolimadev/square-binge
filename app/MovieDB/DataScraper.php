@@ -1,9 +1,11 @@
 <?php
 
-
 namespace App\MovieDB;
+
+use Illuminate\Support\Facades\Storage;
 use App\MovieDB\TvShow;
 use Carbon\Carbon;
+
 
 class DataScraper
 {
@@ -16,15 +18,29 @@ class DataScraper
 
     public function getOnTheAir($howMany = 10)
     {
-        //$this->api->requestOnTheAir(); // TODO: uncomment this when in production
-        $rawJson = \Storage::get('squarebinge/on_the_air.json');
+        $onTheAirFilePath = 'squarebinge/on_the_air.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($onTheAirFilePath)){
+            $this->api->requestOnTheAir();
+        }
+        // read from storage
+        $rawJson = \Storage::get($onTheAirFilePath);
         $json = json_decode($rawJson, true);
         $results = $json['results'];
         $onTheAirArray = array();
 
         foreach ($results as $show)
         {
-            $currentShowInfo = $this->api->requestShow($show['id']);
+            $showFilePath = 'squarebinge/shows/show-' . $show['id'] . '.json';
+            // if file doesnt exist, request it
+            if (!Storage::exists($showFilePath)){
+                $this->api->requestShow($show['id']);
+            }
+            // read from storage
+            $showRaw = Storage::get($showFilePath);
+            $currentShowInfo = json_decode($showRaw, true);
+            //dd($currentShowInfo);
+            // create new TvShow object
             $newSHow = new TvShow(
                 $show['id'],
                 $show['name'],
@@ -33,8 +49,8 @@ class DataScraper
                 $show['vote_average'],
                 $show['overview'],
                 'https://image.tmdb.org/t/p/w200'. $show['poster_path'],
-                $currentShowInfo->number_of_seasons,
-                $currentShowInfo->last_air_date
+                $currentShowInfo['number_of_seasons'],
+                $currentShowInfo['last_air_date']
             );
             array_push($onTheAirArray, $newSHow);
             if (sizeof($onTheAirArray) == $howMany){
@@ -47,7 +63,7 @@ class DataScraper
     public function getTop20Shows(){
 
         //$this->api->requestTop20Shows(); // TODO: uncomment this when in production
-        $rawJson = \Storage::get('squarebinge/top-20-shows.json');
+        $rawJson = Storage::get('squarebinge/top-20-shows.json');
         $json = json_decode($rawJson, true);
         $top20 = $json['results'];
 

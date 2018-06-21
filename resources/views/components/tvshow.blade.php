@@ -7,11 +7,16 @@
         </div>
         <div class="tvshow-info">
             <div class="tvshow-title">
-                {{ $title or 'Default Title' }} <span>({{ $year }})</span>
+                {{ $title or 'Default Title' }}
+                <span>({{ \Carbon\Carbon::parse($year)->year }})</span>
             </div>
-            <div class="tvshow-overview"> {{ $overview }} </div>
+            @if(strlen($overview) > 235)
+                <div class="tvshow-overview"> {{ str_limit($overview,235) }} </div>
+            @else
+                <div class="tvshow-overview"> {{ $overview }} </div>
+            @endif
             <div class="tvshow-other"> {{ $otherInfo }} </div>
-            <a href="#" class="button-follow">Follow</a>
         </div>
+        <a href="#" class="button-follow">Follow</a>
     </div>
 </div>

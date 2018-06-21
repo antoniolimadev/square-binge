@@ -20,11 +20,11 @@ class TvShow
                                 $overview, $posterPath, $numberOfSeasons, $lastAirDate)
     {
         $this->id = $id;
-        $this->name = $name;
+        $this->name = (string) $name;
         $this->firstAirDate = $firstAirDate;
         $this->originalLanguage = $originalLanguage;
         $this->voteAverage = $voteAverage;
-        $this->overview = $overview;
+        $this->overview = (string) $overview;
         $this->posterPath = $posterPath;
         $this->numberOfSeasons = $numberOfSeasons;
         $this->lastAirDate = $lastAirDate;

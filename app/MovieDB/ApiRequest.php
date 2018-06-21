@@ -49,8 +49,9 @@ class ApiRequest
             $showId .
             '?language=en-US&api_key=' . $this->key;
         $requestResponse = $this->curlRequest($requestString);
-        return json_decode($requestResponse); // ALWAYS RETURN DECODE
-        //\Storage::put('squarebinge/top-20-shows.json', json_decode(json_encode($requestResponse)));
+        //return json_decode($requestResponse); // ALWAYS RETURN DECODE
+        $filePath = 'squarebinge/shows/show-' . $showId . '.json';
+        \Storage::put($filePath, json_decode(json_encode($requestResponse)));
     }
 
     public function curlRequest($requestString)

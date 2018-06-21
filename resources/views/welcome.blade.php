@@ -17,19 +17,22 @@
                         {{date("M") . ' ' . $j }}
                     </div>
                     <div class="day-schedule">
-                        @for($k = 0; $k<2; $k++)
+                        {{--@for($k = 0; $k<2; $k++)--}}
+                        @foreach($dataArray as $show)
                         @component('components.tvshow')
                             @slot('cover')
-                                https://image.tmdb.org/t/p/w200/1ryCwZaZFAlG0c1w8XiMHeAxxYy.jpg
+                                {{--https://image.tmdb.org/t/p/w200/1ryCwZaZFAlG0c1w8XiMHeAxxYy.jpg--}}
+                                {{ $show->posterPath }}
                             @endslot
-                            @slot('title') The Handmaid's Tale @endslot
-                            @slot('year') 2017 @endslot
+                            @slot('title') {{ $show->name }} @endslot
+                            @slot('year') {{ $show->firstAirDate }} @endslot
                             @slot('overview')
-                                    Set in a dystopian future, a woman is forced to live as a concubine under a fundamentalist theocratic dictatorship. A TV adaptation of Margaret Atwood's novel.
+                                    {{--Set in a dystopian future, a woman is forced to live as a concubine under a fundamentalist theocratic dictatorship. A TV adaptation of Margaret Atwood's novel.--}}
+                                {{ $show->overview }}
                             @endslot
-                            @slot('otherInfo') Other info @endslot
+                            @slot('otherInfo') [more info] @endslot
                         @endcomponent
-                        @endfor
+                        @endforeach
                     </div>
                 </div>
             @endfor
