@@ -6,6 +6,11 @@
             Welcome, {{ Auth::user()->name }}. Here's your next binge.
         </div>
     @endif
+
+    {{-- SEARCH BAR --}}
+    @component('components.searchbar')
+    @endcomponent
+    {{-- END OF SEARCH BAR --}}
     @for($i = 0; $i<1; $i++)
         <div class="month">
             <div class="month-header">
@@ -17,7 +22,6 @@
                         {{date("M") . ' ' . $j }}
                     </div>
                     <div class="day-schedule">
-                        {{--@for($k = 0; $k<2; $k++)--}}
                         @foreach($dataArray as $show)
                         @component('components.tvshow')
                             @slot('cover')

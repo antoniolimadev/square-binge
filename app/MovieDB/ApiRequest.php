@@ -18,8 +18,8 @@ class ApiRequest
         $requestString = 'http://api.themoviedb.org/3/tv/on_the_air?page=1&language=en-US&api_key=' .
             $this->key;
         $requestResponse = $this->curlRequest($requestString);
-        dd(json_decode($requestResponse));
-        \Storage::put('squarebinge/top-20-shows.json', json_decode(json_encode($requestResponse)));
+
+        \Storage::put('squarebinge/on-the-air.json', json_decode(json_encode($requestResponse)));
     }
 
     //
@@ -28,7 +28,7 @@ class ApiRequest
         $requestString = 'http://api.themoviedb.org/3/tv/on_the_air?page=1&language=en-US&api_key=' .
             $this->key;
         $requestResponse = $this->curlRequest($requestString);
-        //dd(json_decode($requestResponse));
+
         \Storage::put('squarebinge/top-20-shows.json', json_decode(json_encode($requestResponse)));
     }
 
@@ -39,8 +39,9 @@ class ApiRequest
             '/season/' . $seasonNumber .
             '?language=en-US&api_key=' . $this->key;
         $requestResponse = $this->curlRequest($requestString);
-        dd(json_decode($requestResponse));
-        \Storage::put('squarebinge/top-20-shows.json', json_decode(json_encode($requestResponse)));
+
+        $seasonFilePath = 'squarebinge/shows/show-' . $showId . '-last-season.json';
+        \Storage::put($seasonFilePath, json_decode(json_encode($requestResponse)));
     }
 
     public function requestShow($showId)

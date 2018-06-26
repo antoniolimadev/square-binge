@@ -15,9 +15,10 @@ class TvShow
     public $posterPath;
     public $numberOfSeasons;
     public $lastAirDate;
+    public $nextEpisodeDate;
 
     public function __construct($id, $name, $firstAirDate, $originalLanguage, $voteAverage,
-                                $overview, $posterPath, $numberOfSeasons, $lastAirDate)
+                                $overview, $posterPath, $numberOfSeasons, $lastAirDate, $nextEpisodeDate)
     {
         $this->id = $id;
         $this->name = (string) $name;
@@ -28,5 +29,6 @@ class TvShow
         $this->posterPath = $posterPath;
         $this->numberOfSeasons = $numberOfSeasons;
         $this->lastAirDate = $lastAirDate;
+        $this->nextEpisodeDate = $nextEpisodeDate;
     }
 }

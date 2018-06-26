@@ -4,27 +4,34 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 .content {
   padding: 0 10px;
+  text-align: center;
+}
+
+.content-wrapper {
+  display: inline-block;
+  width: 1000px;
 }
 
 hr {
   border: 0;
   border-top: 2px solid #6b6a66;
-  margin: -3px 0 50px 0;
+  margin-top: -3px;
   padding: 0;
 }
 
 .header {
   overflow: hidden;
   background-color: transparent;
-  color: #27C190;
+  color: #24a0ed;
   font-size: 30px;
-  padding: 20px 10px 3px 10px;
-  width: 1000px;
-  margin: 25px auto 0 auto;
+  padding: 55px 10px 3px 10px;
+  width: 981px;
+  margin: 0 auto;
 }
 
 .header a.logo {
@@ -61,15 +68,15 @@ hr {
 }
 
 .header-links a:hover {
-  color: #27C190;
-  border-bottom: 2px solid #27C190;
+  color: #24a0ed;
+  border-bottom: 2px solid #24a0ed;
   -webkit-transition: background-color 0.05s linear;
   transition: background-color 0.05s linear;
 }
 
 .header-links a.active {
-  color: #27C190;
-  border-bottom: 2px solid #27C190;
+  color: #24a0ed;
+  border-bottom: 2px solid #24a0ed;
 }
 
 .welcome-banner {
@@ -83,7 +90,7 @@ hr {
   color: #e5e5e5;
   font-size: 30px;
   padding: 50px 0;
-  width: 1000px;
+  width: 800px;
   margin: 0 auto;
 }
 
@@ -142,7 +149,7 @@ hr {
 /* BUTTONS */
 
 .button-primary {
-  background-color: #27C190;
+  background-color: #24a0ed;
   border-radius: 4px;
   color: #e5e5e5;
   padding: 3px 0;
@@ -162,9 +169,14 @@ hr {
   transition: background-color 0.05s linear;
 }
 
+.card-wrapper {
+  margin: 10px auto;
+  padding: 15px;
+}
+
 .month {
   width: 800px;
-  margin: 30px auto;
+  margin: 10px auto;
   padding: 15px;
   border-radius: 3px;
   border: 1px solid #6b6a66;
@@ -178,13 +190,15 @@ hr {
   margin-bottom: 20px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #27C190;
+  background-color: #24a0ed;
 }
 
 .day-header {
   font-size: 18px;
   padding: 10px 30px;
+  margin: 0 45px;
   border-bottom: 1px solid #6b6a66;
+  border-top: 1px solid #6b6a66;
 }
 
 .day-schedule {
@@ -200,7 +214,7 @@ hr {
   text-align: left;
   margin: 5px 0;
   background-color: #26292d;
-  border-right: 3px solid #27C190;
+  border-right: 3px solid #24a0ed;
   -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
           box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 }
@@ -241,7 +255,7 @@ hr {
 .tvshow-other {
   float: left;
   font-size: 15px;
-  padding: 5px 2px;
+  padding: 7px 2px;
 }
 
 .button-follow {
@@ -264,8 +278,61 @@ hr {
 }
 
 .button-follow:hover {
-  border: 1px solid #27C190;
-  color: #27C190;
+  border: 1px solid #24a0ed;
+  color: #24a0ed;
+}
+
+.topnav {
+  overflow: hidden;
+  display: inline-block;
+  margin-top: 50px;
+  width: 800px;
+  background-color: #24a0ed;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* Style the links inside the navigation bar */
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #e5e5e5;
+  text-align: center;
+  padding: 11px 22px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  border-right: 1px solid #24445A;
+}
+
+/* Change the color of links on hover */
+
+.topnav a:hover {
+  background-color: #DEE7ED;
+  color: #14181c;
+}
+
+/* Style the "active" element to highlight the current page */
+
+.topnav a.active {
+  background-color: #2196F3;
+  color: #e5e5e5;
+}
+
+/* Style the search box inside the navigation bar */
+
+.topnav input[type=text] {
+  float: right;
+  padding: 5px;
+  border: 1px solid #24445A;
+  margin: 4px;
+  font-size: 15px;
+  line-height: 19px;
+  border-radius: 2px;
+  background-color: #26292d;
+  color: #e5e5e5;
 }
 
 .footer {

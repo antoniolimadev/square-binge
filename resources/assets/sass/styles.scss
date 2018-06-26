@@ -3,7 +3,7 @@
 $bg-color: #14181c;
 $light-grey: #969CA1;
 $contrast-gray: #6b6a66;
-$flat-green: #27C190;
+$flat-green: #24a0ed;//#27C190;
 $bright-green: #72c02c;
 $component-background: #26292d;
 // dark gren color scheme
@@ -13,7 +13,8 @@ $text-color-contrast: #e5e5e5;
 $title-color-contrast: #5a7068;
 $selected-color: #3e4e48;
 $card-color: #ebe7d3;
-$default-content-width: 1000px;
+$header-width: 1000px;
+$content-width: 800px;
 $side-padding: 180px;
 $side-margin: 240px;
 $extra-padding: 50px;
@@ -30,16 +31,24 @@ body {
     margin: 0;
     padding: 0;
     //border-top: 2px solid $flat-green;
+    text-align: center;
 }
 
 .content {
     padding: 0 10px;
+    text-align: center;
+}
+
+.content-wrapper {
+    display: inline-block;
+    width: $content-width + 200;
+    //margin-top: 50px;
 }
 
 hr {
     border: 0;
     border-top: 2px solid $contrast-gray;
-    margin: -3px 0 50px 0;
+    margin-top: -3px;
     padding: 0;
 }
 
@@ -48,9 +57,10 @@ hr {
     background-color: transparent;
     color: $flat-green;
     font-size: 30px;
-    padding: 20px 10px 3px 10px;
-    width: $default-content-width;
-    margin: 25px auto 0 auto;
+    padding: 55px 10px 3px 10px;
+    width: $header-width - 19;
+    //margin: 25px auto 0 auto;
+    margin: 0 auto;
 }
 
 .header a.logo {
@@ -109,7 +119,7 @@ hr {
     color: $text-color-contrast;
     font-size: 30px;
     padding: 50px 0;
-    width: $default-content-width;
+    width: $content-width;
     margin: 0 auto;
 }
 
@@ -184,9 +194,16 @@ hr {
     transition: background-color 0.05s linear;
 }
 
+.card-wrapper {
+    //width: $content-width;
+    margin: 10px auto;
+    padding: 15px;
+    //border: 1px solid white;
+}
+
 .month {
-    width: $default-content-width - 200;
-    margin: 30px auto;
+    width: $content-width;
+    margin: 10px auto;
     padding: 15px;
     border-radius: 3px;
     border: 1px solid $contrast-gray;
@@ -205,7 +222,9 @@ hr {
 .day-header {
     font-size: 18px;
     padding: 10px 30px;
+    margin: 0 45px;
     border-bottom: 1px solid $contrast-gray;
+    border-top: 1px solid $contrast-gray;
 }
 
 .day-schedule {
@@ -217,7 +236,7 @@ hr {
 .tvshow-card {
     border-radius: 2px;
     display: inline-block;
-    width: $default-content-width - 300;
+    width: $content-width - 100;
     height: $poster-height;
     text-align: left;
     margin: 5px 0;
@@ -288,6 +307,57 @@ hr {
 .button-follow:hover {
     border: 1px solid $flat-green;
     color: $flat-green;
+}
+
+// SEARCH BAR COMPONENT
+.topnav {
+    overflow: hidden;
+    display: inline-block;
+    //margin: 0 auto;
+    margin-top: 50px;
+    width: $content-width;
+    background-color: $flat-green;
+    border-radius: 2px;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.16),
+    0 2px 4px 0 rgba(0,0,0,0.12);
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    display: block;
+    color: $text-color-contrast;
+    text-align: center;
+    padding: 11px 22px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    border-right: 1px solid #24445A;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #DEE7ED;
+    color: $bg-color;
+}
+
+/* Style the "active" element to highlight the current page */
+.topnav a.active {
+    background-color: #2196F3;
+    color: $text-color-contrast;
+}
+
+/* Style the search box inside the navigation bar */
+.topnav input[type=text] {
+    float: right;
+    padding: 5px;
+    border: 1px solid #24445A;
+    margin: 4px;
+    font-size: 15px;
+    line-height: 19px;
+    border-radius: 2px;
+    background-color: $component-background;
+    color: $text-color-contrast;
 }
 
 // FOOTER
