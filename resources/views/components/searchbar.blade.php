@@ -1,8 +1,9 @@
 {{-- Search Bar Component --}}
 
 <div class="topnav">
-    <a href="#">Airing Today</a>
-    <a href="#">On The Air</a>
+    {{--<a href="#"><i class="fa fa-tv"></i></a>--}}
+    <a href="{{ url('/') . '/tv' }}">On The Air</a>
+    <a href="{{ url('/') . '/tv/airing-today' }}">Airing Today</a>
     <a href="#">Popular</a>
     <a href="#">Top Rated</a>
     <input type="text" placeholder="Search TV...">

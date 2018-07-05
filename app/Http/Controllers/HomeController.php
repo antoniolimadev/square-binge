@@ -35,12 +35,7 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function tv()
-    {
-        $dataScraper = new DataScraper();
-        $dataArray = $dataScraper->getOnTheAir(5);
-        return view('tv', compact('dataArray'));
-    }
+
 
     public function movies()
     {

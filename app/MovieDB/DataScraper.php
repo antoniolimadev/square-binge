@@ -3,6 +3,7 @@
 namespace App\MovieDB;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
 use App\MovieDB\TvShow;
 use Carbon\Carbon;
 
@@ -16,21 +17,10 @@ class DataScraper
         //$this->imgUrlPrefix = 'https://image.tmdb.org/t/p/w200';
     }
 
-    public function getOnTheAir($howMany = 10)
-    {
-        $onTheAirFilePath = 'squarebinge/on-the-air.json';
-        // if file doesnt exist, request it
-        if (!Storage::exists($onTheAirFilePath)){
-            $this->api->requestOnTheAir();
-        }
-        // read from storage
-        $rawJson = \Storage::get($onTheAirFilePath);
-        $json = json_decode($rawJson, true);
-        $results = $json['results'];
-        $onTheAirArray = array();
+    public function getResultsAsShowArray($results, $howMany){
+        $onTheAirCollection = collect();
 
-        foreach ($results as $show)
-        {
+        foreach ($results as $show) {
             // -------------------- request show --------------------
             $showFilePath = 'squarebinge/shows/show-' . $show['id'] . '.json';
             // if file doesnt exist, request it
@@ -58,21 +48,56 @@ class DataScraper
             $newSHow = new TvShow(
                 $show['id'],
                 $show['name'],
-                $show['first_air_date'],
+                Carbon::parse($show['first_air_date'])->toDateString(),
                 $show['original_language'],
                 $show['vote_average'],
                 $show['overview'],
                 'https://image.tmdb.org/t/p/w200'. $show['poster_path'],
                 $currentShowInfo['number_of_seasons'],
-                $currentShowInfo['last_air_date'],
-                $nextEpisodeDate //
+                Carbon::parse($currentShowInfo['last_air_date'])->toDateString(),
+                $nextEpisodeDate,
+                $this->getReadableDate($nextEpisodeDate)
             );
-            array_push($onTheAirArray, $newSHow);
-            if (sizeof($onTheAirArray) == $howMany){
-                return $onTheAirArray;
+
+            $onTheAirCollection->prepend($newSHow);
+            if ($onTheAirCollection->count() == $howMany){
+                $onTheAirCollection = collect($onTheAirCollection)
+                    ->sortByDesc('nextEpisodeDate')
+                    ->reverse()
+                    ->toArray();
+                return $onTheAirCollection;
             }
         }
-        return $onTheAirArray;
+        return $onTheAirCollection;
+    }
+
+    public function getOnTheAir($howMany = 10)
+    {
+        $onTheAirFilePath = 'squarebinge/on-the-air.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($onTheAirFilePath)){
+            $this->api->requestOnTheAir();
+        }
+        // read from storage
+        $rawJson = \Storage::get($onTheAirFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsShowArray($results, $howMany);
+    }
+
+    public function getAiringToday($howMany = 10){
+        $airingTodayFilePath = 'squarebinge/airing-today.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($airingTodayFilePath)){
+            $this->api->requestAiringToday();
+        }
+        // read from storage
+        $rawJson = \Storage::get($airingTodayFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsShowArray($results, $howMany);
     }
 
     public function getTop20Shows(){
@@ -114,14 +139,24 @@ class DataScraper
 
     public function getNextEpisode($currentSeasonInfo)
     {
+        $today = Carbon::now()->toDateString();
         $episodes = $currentSeasonInfo['episodes'];
         foreach ($episodes as $episode){
             $airData = Carbon::parse($episode['air_date']);
             // if episode hasn't aired yet
-            if($airData->gt(Carbon::now())){
+            if($airData->gte($today)){
                 return $airData;
             }
         }
         return null;
+    }
+
+    public function getReadableDate($date){
+
+        $carbonDate = Carbon::parse($date);
+        $monthNum = $carbonDate->month;
+        $dateObj   = \DateTime::createFromFormat('!m', $monthNum);
+        $monthName = $dateObj->format('F');
+        return $carbonDate->day . ' ' . $monthName;
     }
 }

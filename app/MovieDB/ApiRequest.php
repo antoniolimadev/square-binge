@@ -22,6 +22,15 @@ class ApiRequest
         \Storage::put('squarebinge/on-the-air.json', json_decode(json_encode($requestResponse)));
     }
 
+    public function requestAiringToday()
+    {
+        $requestString = 'http://api.themoviedb.org/3/tv/airing_today?page=1&language=en-US&api_key=' .
+            $this->key;
+        $requestResponse = $this->curlRequest($requestString);
+
+        \Storage::put('squarebinge/airing-today.json', json_decode(json_encode($requestResponse)));
+    }
+
     //
     public function requestTop20Shows()
     {

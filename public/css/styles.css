@@ -170,6 +170,7 @@ hr {
 }
 
 .card-wrapper {
+  text-align: center;
   margin: 10px auto;
   padding: 15px;
 }
@@ -206,17 +207,49 @@ hr {
   text-align: center;
 }
 
+.tvshow-wrap {
+  display: inline-block;
+  text-align: center;
+  width: 700px;
+  margin-top: 5px;
+}
+
 .tvshow-card {
-  border-radius: 2px;
   display: inline-block;
   width: 700px;
   height: 180px;
   text-align: left;
-  margin: 5px 0;
   background-color: #26292d;
+  border-radius: 2px;
   border-right: 3px solid #24a0ed;
   -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
           box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+.tvshow-date {
+  display: block;
+  float: left;
+  height: 160px;
+  width: 7%;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #24a0ed;
+  color: #e5e5e5;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.tvshow-date-2 {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  padding: 2px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  background-color: #24a0ed;
+  color: #e5e5e5;
 }
 
 .tvshow-cover {
@@ -248,7 +281,8 @@ hr {
 }
 
 .tvshow-overview {
-  font-size: 15px;
+  font-size: 13px;
+  font-style: italic;
   padding: 5px 2px;
 }
 
@@ -309,16 +343,10 @@ hr {
 
 /* Change the color of links on hover */
 
-.topnav a:hover {
+.topnav a:hover,
+.topnav a.active {
   background-color: #DEE7ED;
   color: #14181c;
-}
-
-/* Style the "active" element to highlight the current page */
-
-.topnav a.active {
-  background-color: #2196F3;
-  color: #e5e5e5;
 }
 
 /* Style the search box inside the navigation bar */
