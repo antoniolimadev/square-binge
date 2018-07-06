@@ -32,13 +32,22 @@ class ApiRequest
     }
 
     //
-    public function requestTop20Shows()
+    public function requestTopRatedShows()
     {
-        $requestString = 'http://api.themoviedb.org/3/tv/on_the_air?page=1&language=en-US&api_key=' .
+        $requestString = 'http://api.themoviedb.org/3/tv/top_rated?page=1&language=en-US&api_key=' .
             $this->key;
         $requestResponse = $this->curlRequest($requestString);
 
-        \Storage::put('squarebinge/top-20-shows.json', json_decode(json_encode($requestResponse)));
+        \Storage::put('squarebinge/top-rated-shows.json', json_decode(json_encode($requestResponse)));
+    }
+
+    public function requestPopularShows()
+    {
+        $requestString = 'http://api.themoviedb.org/3/tv/popular?page=1&language=en-US&api_key=' .
+            $this->key;
+        $requestResponse = $this->curlRequest($requestString);
+
+        \Storage::put('squarebinge/popular-shows.json', json_decode(json_encode($requestResponse)));
     }
 
     public function requestSeason($showId, $seasonNumber)

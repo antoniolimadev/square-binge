@@ -27,8 +27,24 @@ class TvController extends Controller
     public function airingToday(){
         $dataScraper = new DataScraper();
         $showsDataArray = $dataScraper->getAiringToday(5);
-        dd($showsDataArray);
+        //dd($showsDataArray);
         $headerLink = 'Airing Today';
+        return view('tv.on-the-air', compact('showsDataArray', 'headerLink'));
+    }
+
+    public function popular(){
+        $dataScraper = new DataScraper();
+        $showsDataArray = $dataScraper->getPopularShows(5);
+        //dd($showsDataArray);
+        $headerLink = 'Popular';
+        return view('tv.on-the-air', compact('showsDataArray', 'headerLink'));
+    }
+
+    public function topRated(){
+        $dataScraper = new DataScraper();
+        $showsDataArray = $dataScraper->getTopRatedShows(5);
+        //dd($showsDataArray);
+        $headerLink = 'Top Rated';
         return view('tv.on-the-air', compact('showsDataArray', 'headerLink'));
     }
 }

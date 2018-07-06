@@ -100,32 +100,32 @@ class DataScraper
         return $this->getResultsAsShowArray($results, $howMany);
     }
 
-    public function getTop20Shows(){
-
-        //$this->api->requestTop20Shows(); // TODO: uncomment this when in production
-        $rawJson = Storage::get('squarebinge/top-20-shows.json');
-        $json = json_decode($rawJson, true);
-        $top20 = $json['results'];
-
-        $top20Array = array();
-
-        foreach ($top20 as $show)
-        {
-            $currentShowInfo = $this->api->requestShow($show['id']);
-            $newSHow = new TvShow(
-                $show['id'],
-                $show['name'],
-                $show['first_air_date'],
-                $show['original_language'],
-                $show['vote_average'],
-                $show['overview'],
-                $show['poster_path'],
-                $currentShowInfo->number_of_seasons,
-                $currentShowInfo->last_air_date
-            );
-            array_push($top20Array, $newSHow);
+    public function getTopRatedShows($howMany = 10){
+        $topRatedFilePath = 'squarebinge/top-rated-shows.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($topRatedFilePath)){
+            $this->api->requestTopRatedShows();
         }
-        return $top20Array;
+        // read from storage
+        $rawJson = \Storage::get($topRatedFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsShowArray($results, $howMany);
+    }
+
+    public function getPopularShows($howMany = 10){
+        $popularShowsFilePath = 'squarebinge/popular-shows.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($popularShowsFilePath)){
+            $this->api->requestPopularShows();
+        }
+        // read from storage
+        $rawJson = \Storage::get($popularShowsFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsShowArray($results, $howMany);
     }
 
     public function getSeason($showId, $seasonNumber){
@@ -152,8 +152,13 @@ class DataScraper
     }
 
     public function getReadableDate($date){
-
+        if (!$date){ return 'TBA'; }
+        $today = Carbon::now();
         $carbonDate = Carbon::parse($date);
+        if ($carbonDate->day == $today->day &&
+            $carbonDate->month == $today->month){
+            return 'Today';
+        }
         $monthNum = $carbonDate->month;
         $dateObj   = \DateTime::createFromFormat('!m', $monthNum);
         $monthName = $dateObj->format('F');
