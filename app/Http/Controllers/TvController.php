@@ -68,10 +68,32 @@ class TvController extends Controller
         return response()->json($response, 201);
     }
 
+    public function onTheAirJson(){
+        $dataScraper = new DataScraper();
+        $showsDataArray = $dataScraper->getOnTheAir(5);
+        $headerLink = 'On The Air';
+        $response = array();
+        foreach ($showsDataArray as $show){
+            array_push($response, $show);
+        }
+        return response()->json($response, 201);
+    }
+
+    public function airingTodayJson(){
+        $dataScraper = new DataScraper();
+        $showsDataArray = $dataScraper->getAiringToday(5);
+        $headerLink = 'Airing Today';
+        $response = array();
+        foreach ($showsDataArray as $show){
+            array_push($response, $show);
+        }
+        return response()->json($response, 201);
+    }
+
     public function popularJson(){
         $dataScraper = new DataScraper();
         $showsDataArray = $dataScraper->getPopularShows(5);
-        $headerLink = 'Popular';
+        $headerLink = 'Top Rated';
         $response = array();
         foreach ($showsDataArray as $show){
             array_push($response, $show);

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ShowList from './ShowList';
 
-/* An example React component */
 class SearchBar extends Component {
 
     constructor() {
@@ -15,7 +14,6 @@ class SearchBar extends Component {
             activeLink: 'On The Air'
         }
     }
-
     /*componentDidMount() is a lifecycle method
    * that gets called after the component is rendered
    */
@@ -29,6 +27,17 @@ class SearchBar extends Component {
                 //Fetched posts is stored in the state
                 this.setState({ headerLinks: headerLinks.links,
                                 search: headerLinks.search
+                });
+            });
+        // fetch default showList
+        fetch('/square-binge/public/api/tv/on-the-air')
+            .then(response => {
+                return response.json();
+            })
+            .then(showList => {
+                //Fetched shows are stored in the state
+                this.setState({ showList: showList,
+                    activeLink: 'On The Air'
                 });
             });
     }
@@ -52,7 +61,6 @@ class SearchBar extends Component {
             );
         })
     }
-
 
     handleClick(link, tab) {
         fetch('/square-binge/public/api/tv/' + link)
@@ -82,7 +90,7 @@ class SearchBar extends Component {
     }
 }
 export default SearchBar;
-/* The if statement is required so as to Render the component on pages that have a div with an ID of "root"; */
+/* The if statement is required so as to Render the component on pages that have a div with an ID of "reactContent"; */
 if (document.getElementById('reactContent')) {
     ReactDOM.render(<SearchBar />, document.getElementById('reactContent'));
 }

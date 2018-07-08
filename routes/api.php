@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('tv')->group(function () {
     Route::get('/headerLinks', 'TvController@headerLinks');
+    Route::get('/on-the-air', 'TvController@onTheAirJson');
+    Route::get('/airing-today', 'TvController@airingTodayJson');
     Route::get('/popular', 'TvController@popularJson');
     Route::get('/top-rated', 'TvController@topRatedJson');
 });

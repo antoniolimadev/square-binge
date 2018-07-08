@@ -37889,8 +37889,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-/* An example React component */
-
 var SearchBar = function (_Component) {
     _inherits(SearchBar, _Component);
 
@@ -37908,7 +37906,6 @@ var SearchBar = function (_Component) {
         };
         return _this;
     }
-
     /*componentDidMount() is a lifecycle method
     * that gets called after the component is rendered
     */
@@ -37926,6 +37923,15 @@ var SearchBar = function (_Component) {
                 //Fetched posts is stored in the state
                 _this2.setState({ headerLinks: headerLinks.links,
                     search: headerLinks.search
+                });
+            });
+            // fetch default showList
+            fetch('/square-binge/public/api/tv/on-the-air').then(function (response) {
+                return response.json();
+            }).then(function (showList) {
+                //Fetched shows are stored in the state
+                _this2.setState({ showList: showList,
+                    activeLink: 'On The Air'
                 });
             });
         }
@@ -37995,7 +38001,7 @@ var SearchBar = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* unused harmony default export */ var _unused_webpack_default_export = (SearchBar);
-/* The if statement is required so as to Render the component on pages that have a div with an ID of "root"; */
+/* The if statement is required so as to Render the component on pages that have a div with an ID of "reactContent"; */
 if (document.getElementById('reactContent')) {
     __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(SearchBar, null), document.getElementById('reactContent'));
 }
