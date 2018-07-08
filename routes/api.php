@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('tv')->group(function () {
+    Route::get('/headerLinks', 'TvController@headerLinks');
+    Route::get('/popular', 'TvController@popularJson');
+    Route::get('/top-rated', 'TvController@topRatedJson');
+});

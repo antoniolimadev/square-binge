@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Square Binge</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ url('/') }}/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
@@ -16,6 +17,7 @@
     </div>
     @include('layouts.footer')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url('/') }}/js/app.js" ></script>
     @yield('scripts')
 </body>
 </html>

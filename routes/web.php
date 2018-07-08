@@ -13,4 +13,6 @@ Route::prefix('tv')->group(function () {
     Route::get('/airing-today', 'TvController@airingToday');
     Route::get('/popular', 'TvController@popular');
     Route::get('/top-rated', 'TvController@topRated');
+    // test
+    Route::get('/test', 'TvController@test');
 });
