@@ -14178,10 +14178,11 @@ var ShowList = function ShowList(_ref) {
 
 
     if (!shows) {
+        //return (<div> No shows to display </div>);
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             null,
-            ' No shows to display '
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: '/square-binge/public/img/loading-animation.svg' })
         );
     }
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
