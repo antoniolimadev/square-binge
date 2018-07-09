@@ -13,16 +13,16 @@ const ShowCard = ({show}) => {
     {/*<div> {show.id}, {show.name} </div>*/}
     return <div>
         <div className="tvshow-wrap">
-            <div className="tvshow-date-2">{show.readableAirDate}</div>
+            <div className="tvshow-date-2">{show.nextAirDate}</div>
             <div className="tvshow-card">
                 <div className="block-container">
                     <div className="tvshow-cover">
-                        <img src={show.posterPath}/>
+                        <img src={show.cover}/>
                     </div>
                     <div className="tvshow-info">
                         <div className="tvshow-title">
-                            {show.name}
-                            <span>(2018)</span>
+                            {show.title}
+                            <span> ({show.year}) </span>
                         </div>
                         <div className="tvshow-overview"> {show.overview} </div>
                         <div className="tvshow-other"> [more info] </div>
