@@ -37992,7 +37992,8 @@ var SearchBar = function (_Component) {
             headerLinks: [],
             search: 'Search...',
             showList: null,
-            activeLink: 'On The Air'
+            activeLink: 'On The Air',
+            searchQuery: 'test'
         };
         return _this;
     }
@@ -38076,7 +38077,12 @@ var SearchBar = function (_Component) {
                     'div',
                     { className: 'topnav' },
                     this.renderHeader(),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', placeholder: this.state.search.string })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'form',
+                        { autoComplete: "off", action: '/square-binge/public/tv/search' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: "query",
+                            placeholder: this.state.search.string })
+                    )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',

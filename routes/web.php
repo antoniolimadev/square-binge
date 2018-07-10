@@ -9,6 +9,5 @@ Route::get('/home', 'HomeController@home')->name('home');
 
 Route::prefix('tv')->group(function () {
     Route::get('/', 'TvController@index');
-    // test
-    Route::get('/test', 'TvController@test');
+    Route::get('/search', 'TvController@search');
 });

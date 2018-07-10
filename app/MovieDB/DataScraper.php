@@ -151,6 +151,10 @@ class DataScraper
         return null;
     }
 
+    public function getTvSearch($query){
+        return $this->api->requestTvSearch($query);
+    }
+
     public function getReadableDate($date){
         if (!$date){ return 'TBA'; }
         $today = Carbon::now();

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import ShowList from './ShowList';
 
 class SearchBar extends Component {
-
     constructor() {
         super();
         //Initialize the state in the constructor
@@ -11,7 +10,8 @@ class SearchBar extends Component {
             headerLinks: [],
             search: 'Search...',
             showList: null,
-            activeLink: 'On The Air'
+            activeLink: 'On The Air',
+            searchQuery: 'test'
         }
     }
     /*componentDidMount() is a lifecycle method
@@ -80,7 +80,11 @@ class SearchBar extends Component {
             <div>
                 <div className="topnav">
                     {this.renderHeader()}
-                    <input type="text" placeholder={this.state.search.string }></input>
+                    <form autoComplete={"off"} action={'/square-binge/public/tv/search'}>
+                        <input type="text" name={"query"}
+                            placeholder={this.state.search.string }>
+                        </input>
+                    </form>
                 </div>
                 <div className="card-wrapper">
                     <ShowList shows = {this.state.showList} />

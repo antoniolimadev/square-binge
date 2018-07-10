@@ -14,4 +14,12 @@ class TvController extends Controller
     public function index(){
         return view('tv.home');
     }
+
+    public function search(){
+        $dataScraper = new DataScraper();
+        $request = request(['query'])['query'];
+        $searchResults = $dataScraper->getTvSearch($request);
+        dd($searchResults);
+        return view('tv.search');
+    }
 }

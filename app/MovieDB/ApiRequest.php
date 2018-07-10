@@ -73,6 +73,15 @@ class ApiRequest
         \Storage::put($filePath, json_decode(json_encode($requestResponse)));
     }
 
+    public function requestTVSearch($query){
+        $encondedQuery = urlencode($query);
+        $requestString = 'http://api.themoviedb.org/3/search/tv?query=' .
+        $encondedQuery .
+        '&api_key=' . $this->key .
+        '&language=en-US&page=1';
+        return $this->curlRequest($requestString);
+    }
+
     public function curlRequest($requestString)
     {
         $curl = curl_init();
