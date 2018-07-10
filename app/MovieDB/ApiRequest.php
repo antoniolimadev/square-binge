@@ -79,7 +79,8 @@ class ApiRequest
         $encondedQuery .
         '&api_key=' . $this->key .
         '&language=en-US&page=1';
-        return $this->curlRequest($requestString);
+        $requestResponse = $this->curlRequest($requestString);
+        return json_decode(json_encode($requestResponse));
     }
 
     public function curlRequest($requestString)

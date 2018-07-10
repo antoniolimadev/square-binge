@@ -17,7 +17,7 @@ class DataScraper
         //$this->imgUrlPrefix = 'https://image.tmdb.org/t/p/w200';
     }
 
-    public function getResultsAsShowArray($results, $howMany){
+    public function getResultsAsShowArray($results, $howMany = 10){
         $onTheAirCollection = collect();
 
         foreach ($results as $show) {
@@ -31,7 +31,6 @@ class DataScraper
             $showRaw = Storage::get($showFilePath);
             $currentShowInfo = json_decode($showRaw, true);
 
-            //dd($currentShowInfo);
             // -------------------- request season --------------------
             $seasonFilePath = 'squarebinge/shows/show-' . $show['id'] . '-last-season.json';
             // if season file doesnt exist, request it
@@ -42,7 +41,6 @@ class DataScraper
             $seasonRaw = Storage::get($seasonFilePath);
             $currentSeasonInfo = json_decode($seasonRaw, true);
 
-            //dd($currentSeasonInfo);
             $nextEpisodeDate = $this->getNextEpisode($currentSeasonInfo);
             // -------------------- create new TvShow object --------------------
             $newSHow = new TvShow(
@@ -139,8 +137,10 @@ class DataScraper
 
     public function getNextEpisode($currentSeasonInfo)
     {
+        if (!array_key_exists('episodes', $currentSeasonInfo)){ return null; }
         $today = Carbon::now()->toDateString();
         $episodes = $currentSeasonInfo['episodes'];
+
         foreach ($episodes as $episode){
             $airData = Carbon::parse($episode['air_date']);
             // if episode hasn't aired yet
@@ -152,11 +152,16 @@ class DataScraper
     }
 
     public function getTvSearch($query){
-        return $this->api->requestTvSearch($query);
+        $results =  json_decode($this->api->requestTvSearch($query), true);
+        $resultsArray = $results['results'];
+        if ($results['total_results'] > 5){
+            return $this->getResultsAsShowArray($resultsArray, 10);
+        }
+        return $this->getResultsAsShowArray($resultsArray, sizeof($resultsArray));
     }
 
     public function getReadableDate($date){
-        if (!$date){ return 'TBA'; }
+        if (!$date){ return 'NA'; }
         $today = Carbon::now();
         $carbonDate = Carbon::parse($date);
         if ($carbonDate->day == $today->day &&
