@@ -278,6 +278,7 @@ hr {
 
 .tvshow-cover img {
   height: 180px;
+  width: 120px;
 }
 
 .tvshow-overview {
@@ -341,15 +342,13 @@ hr {
   border-right: 1px solid #24445A;
 }
 
-/* Change the color of links on hover */
-
 .topnav a:hover,
 .topnav a.active {
   background-color: #DEE7ED;
   color: #14181c;
 }
 
-/* Style the search box inside the navigation bar */
+/* search box inside the nav bar */
 
 .topnav input[type=text] {
   float: right;
@@ -361,6 +360,87 @@ hr {
   border-radius: 2px;
   background-color: #26292d;
   color: #e5e5e5;
+}
+
+/* search box from search page */
+
+.search-box {
+  overflow: hidden;
+  display: inline-block;
+  margin-top: 50px;
+  width: 800px;
+  background-color: #24a0ed;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+.search-box input[type=text] {
+  float: left;
+  padding: 5px;
+  border: 1px solid #24445A;
+  margin: 4px;
+  font-size: 15px;
+  line-height: 19px;
+  border-radius: 2px;
+  background-color: #26292d;
+  color: #e5e5e5;
+  width: 400px;
+}
+
+/* DROPDOWN MENU SEARCH OPTIONS */
+
+.dropdown {
+  float: right;
+  border: 1px solid #24445A;
+  margin: 4px;
+  border-radius: 2px;
+  background-color: #26292d;
+  overflow: hidden;
+}
+
+.dropdown-btn {
+  background-color: #26292d;
+  cursor: pointer;
+  border: none;
+  outline: 0;
+  padding: 5px 15px;
+  font-size: 15px;
+  line-height: 19px;
+  color: #e5e5e5;
+}
+
+.dropdown-btn i {
+  margin-left: 30px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 10px 14px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-size: 15px;
+}
+
+.dropdown-content a:hover {
+  background-color: #24a0ed;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 
 .footer {
