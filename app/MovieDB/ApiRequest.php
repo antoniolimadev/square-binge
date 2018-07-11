@@ -83,6 +83,27 @@ class ApiRequest
         return json_decode(json_encode($requestResponse));
     }
 
+    public function requestMovie($movieId)
+    {
+        $requestString = 'http://api.themoviedb.org/3/movie/' .
+            $movieId .
+            '?language=en-US&api_key=' . $this->key;
+        $requestResponse = $this->curlRequest($requestString);
+        //return json_decode($requestResponse); // ALWAYS RETURN DECODE
+        $filePath = 'squarebinge/movies/movie-' . $movieId . '.json';
+        \Storage::put($filePath, json_decode(json_encode($requestResponse)));
+    }
+
+    // --------------------------- MOVIES ---------------------------
+    public function requestNowPlaying()
+    {
+        $requestString = 'http://api.themoviedb.org/3/movie/now_playing?page=1&language=en-US&api_key=' .
+            $this->key;
+        $requestResponse = $this->curlRequest($requestString);
+
+        \Storage::put('squarebinge/now-playing.json', json_decode(json_encode($requestResponse)));
+    }
+
     public function curlRequest($requestString)
     {
         $curl = curl_init();

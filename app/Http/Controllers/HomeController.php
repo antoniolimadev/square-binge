@@ -25,9 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         $dataScraper = new DataScraper();
-        $dataArray = $dataScraper->getOnTheAir(5);
-        //dd($dataArray);
-        return view('welcome', compact('dataArray'));
+        $showArray = $dataScraper->getOnTheAir(5);
+        $movieArray = $dataScraper->getNowPlaying(5);
+        //dd($movieArray);
+        return view('welcome', compact('showArray', 'movieArray'));
     }
 
     public function home()

@@ -77,7 +77,7 @@ class DataScraper
             $this->api->requestOnTheAir();
         }
         // read from storage
-        $rawJson = \Storage::get($onTheAirFilePath);
+        $rawJson = Storage::get($onTheAirFilePath);
         $json = json_decode($rawJson, true);
         $results = $json['results'];
 
@@ -91,7 +91,7 @@ class DataScraper
             $this->api->requestAiringToday();
         }
         // read from storage
-        $rawJson = \Storage::get($airingTodayFilePath);
+        $rawJson = Storage::get($airingTodayFilePath);
         $json = json_decode($rawJson, true);
         $results = $json['results'];
 
@@ -105,7 +105,7 @@ class DataScraper
             $this->api->requestTopRatedShows();
         }
         // read from storage
-        $rawJson = \Storage::get($topRatedFilePath);
+        $rawJson = Storage::get($topRatedFilePath);
         $json = json_decode($rawJson, true);
         $results = $json['results'];
 
@@ -119,7 +119,7 @@ class DataScraper
             $this->api->requestPopularShows();
         }
         // read from storage
-        $rawJson = \Storage::get($popularShowsFilePath);
+        $rawJson = Storage::get($popularShowsFilePath);
         $json = json_decode($rawJson, true);
         $results = $json['results'];
 
@@ -172,5 +172,60 @@ class DataScraper
         $dateObj   = \DateTime::createFromFormat('!m', $monthNum);
         $monthName = $dateObj->format('F');
         return $carbonDate->day . ' ' . $monthName;
+    }
+
+    // --------------------------- MOVIES ---------------------------
+
+    public function getNowPlaying($howMany = 10)
+    {
+        $nowPlayingFilePath = 'squarebinge/now-playing.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($nowPlayingFilePath)){
+            $this->api->requestNowPlaying();
+        }
+        // read from storage
+        $rawJson = Storage::get($nowPlayingFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsMovieArray($results, $howMany);
+    }
+
+    public function getResultsAsMovieArray($results, $howMany = 10){
+        $movieCollection = collect();
+
+        foreach ($results as $movie) {
+            // -------------------- request show --------------------
+            $movieFilePath = 'squarebinge/movies/movie-' . $movie['id'] . '.json';
+            // if file does not exist, request it
+            if (!Storage::exists($movieFilePath)){
+                $this->api->requestMovie($movie['id']);
+            }
+            // read show from storage
+            $movieRaw = Storage::get($movieFilePath);
+            $currentMovie = json_decode($movieRaw, true);
+
+            // -------------------- create new TvShow object --------------------
+            $newMovie = new Movie(
+                $currentMovie['id'],
+                $currentMovie['title'],
+                $currentMovie['original_language'],
+                $currentMovie['vote_average'],
+                $currentMovie['overview'],
+                'https://image.tmdb.org/t/p/w200'. $currentMovie['poster_path'],
+                $currentMovie['release_date'],
+                $this->getReadableDate($currentMovie['release_date'])
+            );
+
+            $movieCollection->prepend($newMovie);
+            if ($movieCollection->count() == $howMany){
+                $movieCollection = collect($movieCollection)
+                    ->sortByDesc('$releaseDate')
+                    ->reverse()
+                    ->toArray();
+                return $movieCollection;
+            }
+        }
+        return $movieCollection;
     }
 }
