@@ -131,6 +131,45 @@ hr {
   color: #e5e5e5;
 }
 
+.billboard-banner {
+  display: inline-block;
+  text-align: center;
+}
+
+.billboard-row {
+  margin-top: 40px;
+}
+
+.billboard-title {
+  text-align: left;
+  padding: 10px 0;
+}
+
+.billboard-title a {
+  text-decoration: none;
+  color: #24a0ed;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.billboard-single-container {
+  position: relative;
+  text-align: left;
+}
+
+.billboard-banner img {
+  width: 230px;
+}
+
+.billboard-img-title {
+  position: absolute;
+  bottom: 10px;
+  left: 16px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 2px 2px black;
+}
+
 /* FLEXBOX */
 
 .block-container {

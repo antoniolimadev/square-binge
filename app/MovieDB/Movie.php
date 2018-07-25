@@ -11,10 +11,11 @@ class Movie
     public $voteAverage;
     public $overview;
     public $posterPath;
+    public $bannerPath;
     public $releaseDate;
     public $readableAirDate; // formatted date '5 July'
 
-    public function __construct($id, $name, $originalLanguage, $voteAverage, $overview, $posterPath, $releaseDate, $readableAirDate)
+    public function __construct($id, $name, $originalLanguage, $voteAverage, $overview, $posterPath, $bannerPath, $releaseDate, $readableAirDate)
     {
         $this->id = $id;
         $this->name = $name;
@@ -22,6 +23,7 @@ class Movie
         $this->voteAverage = $voteAverage;
         $this->overview = $overview;
         $this->posterPath = $posterPath;
+        $this->bannerPath = $bannerPath;
         $this->releaseDate = $releaseDate;
         $this->readableAirDate = $readableAirDate;
     }

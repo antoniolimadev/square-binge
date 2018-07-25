@@ -51,6 +51,7 @@ class DataScraper
                 $show['vote_average'],
                 $show['overview'],
                 'https://image.tmdb.org/t/p/w200'. $show['poster_path'],
+                'https://image.tmdb.org/t/p/w300'. $show['backdrop_path'],
                 $currentShowInfo['number_of_seasons'],
                 Carbon::parse($currentShowInfo['last_air_date'])->toDateString(),
                 $nextEpisodeDate,
@@ -213,6 +214,7 @@ class DataScraper
                 $currentMovie['vote_average'],
                 $currentMovie['overview'],
                 'https://image.tmdb.org/t/p/w200'. $currentMovie['poster_path'],
+                'https://image.tmdb.org/t/p/w300'. $currentMovie['backdrop_path'],
                 $currentMovie['release_date'],
                 $this->getReadableDate($currentMovie['release_date'])
             );

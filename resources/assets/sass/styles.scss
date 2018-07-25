@@ -23,6 +23,7 @@ $poster-height: 180px; //250
 $card-footer-height: 35px;
 $button-primary-color: #3e4e48;
 $button-hover-color: #1C2522;
+$margin-from-navbar: 50px;
 
 body {
     background-color: $bg-color;
@@ -59,7 +60,6 @@ hr {
     font-size: 30px;
     padding: 55px 10px 3px 10px;
     width: $header-width - 19;
-    //margin: 25px auto 0 auto;
     margin: 0 auto;
 }
 
@@ -158,6 +158,45 @@ hr {
     width: $poster-width;
     height: $card-footer-height;
     color: $text-color-contrast;
+}
+
+.billboard-banner {
+    display: inline-block;
+    text-align: center;
+}
+
+.billboard-row {
+    margin-top: 40px;
+}
+
+.billboard-title {
+    text-align: left;
+    padding: 10px 0;
+}
+
+.billboard-title a {
+    text-decoration: none;
+    color: $flat-green;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.billboard-single-container {
+    position: relative;
+    text-align: left;
+}
+
+.billboard-banner img {
+    width: 230px;
+}
+
+.billboard-img-title {
+    position: absolute;
+    bottom: 10px;
+    left: 16px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 2px 2px rgba(0,0,0,1);
 }
 
 /* FLEXBOX */
@@ -351,7 +390,7 @@ hr {
     overflow: hidden;
     display: inline-block;
     //margin: 0 auto;
-    margin-top: 50px;
+    margin-top: $margin-from-navbar;
     width: $content-width;
     background-color: $flat-green;
     border-radius: 2px;
