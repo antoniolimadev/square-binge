@@ -104,6 +104,15 @@ class ApiRequest
         \Storage::put('squarebinge/now-playing.json', json_decode(json_encode($requestResponse)));
     }
 
+    public function requestUpcoming()
+    {
+        $requestString = 'http://api.themoviedb.org/3/movie/upcoming?page=1&language=en-US&api_key=' .
+            $this->key;
+        $requestResponse = $this->curlRequest($requestString);
+
+        \Storage::put('squarebinge/upcoming.json', json_decode(json_encode($requestResponse)));
+    }
+
     public function curlRequest($requestString)
     {
         $curl = curl_init();

@@ -1,50 +1,45 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import ShowList from './ShowList';
 
-class SearchBar extends Component {
-    constructor() {
-        super();
-        //Initialize the state in the constructor
+class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
-            headerLinks: [],
-            search: 'Search...',
-            showList: null,
-            activeLink: 'On The Air',
+            source: props.source,
+            defaultList: props.defaultList,
+            headerLinks: props.headerLinks,
+            search: props.search,
+            showList: props.showList,
+            activeLink: props.activeLink,
             searchQuery: 'test'
         }
     }
-    /*componentDidMount() is a lifecycle method
-   * that gets called after the component is rendered
-   */
+
     componentDidMount() {
-        /* fetch API in action */
-        fetch('/square-binge/public/api/tv/headerLinks')
+        // fetch header links from API
+        fetch(this.state.source + 'headerLinks')
             .then(response => {
                 return response.json();
             })
             .then(headerLinks => {
-                //Fetched posts is stored in the state
                 this.setState({ headerLinks: headerLinks.links,
-                                search: headerLinks.search
+                    search: headerLinks.search
                 });
             });
-        // fetch default showList
-        fetch('/square-binge/public/api/tv/on-the-air')
+        // fetch default List
+        fetch(this.state.source + this.state.defaultList)
             .then(response => {
                 return response.json();
             })
             .then(showList => {
-                //Fetched shows are stored in the state
                 this.setState({ showList: showList,
-                    activeLink: 'On The Air'
+                    activeLink: this.state.activeLink
                 });
             });
     }
-
+    // build navbar with fetched header links and search input
     renderHeader() {
         return this.state.headerLinks.map((headerLink, i) => {
-            var url = '/square-binge/public/';
             if (this.state.activeLink === headerLink.string){
                 return (
                     <a key={i} onClick={ () =>this.handleClick(headerLink.link, headerLink.string)}
@@ -55,34 +50,34 @@ class SearchBar extends Component {
             }
             return (
                 <a key={i} onClick={ () =>this.handleClick(headerLink.link, headerLink.string)}
-                    href={'#' + headerLink.link} >
+                   href={'#' + headerLink.link} >
                     { headerLink.string }
                 </a>
             );
         })
     }
-
+    // click function for each header link
     handleClick(link, tab) {
-        fetch('/square-binge/public/api/tv/' + link)
+        fetch(this.state.source + link)
             .then(response => {
                 return response.json();
             })
             .then(showList => {
                 //Fetched posts is stored in the state
                 this.setState({ showList: showList,
-                                activeLink: tab
+                    activeLink: tab
                 });
             });
     }
-
+    // render the navbar and the ShowList component
     render() {
         return (
             <div>
                 <div className="topnav">
                     {this.renderHeader()}
-                    <form autoComplete={"off"} action={'/square-binge/public/tv/search'}>
+                    <form autoComplete={"off"} action={this.state.source + 'search'}>
                         <input type="text" name={"query"}
-                            placeholder={this.state.search.string }>
+                               placeholder={this.state.search.string }>
                         </input>
                     </form>
                 </div>
@@ -94,7 +89,3 @@ class SearchBar extends Component {
     }
 }
 export default SearchBar;
-/* The if statement is required so as to Render the component on pages that have a div with an ID of "reactContent"; */
-if (document.getElementById('reactContent')) {
-    ReactDOM.render(<SearchBar />, document.getElementById('reactContent'));
-}

@@ -13748,7 +13748,7 @@ var ShowCard = function ShowCard(_ref) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             "div",
             null,
-            "  show Doesnt exist "
+            "  Item Doesnt exist "
         );
     }
 
@@ -13763,7 +13763,7 @@ var ShowCard = function ShowCard(_ref) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
                 { className: "tvshow-date-2" },
-                show.nextAirDate
+                show.date
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 "div",
@@ -14213,6 +14213,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_ShowCard__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_ShowList__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_SearchBar__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_MovieWrapper__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_TvWrapper__ = __webpack_require__(66);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -14227,6 +14229,8 @@ __webpack_require__(21);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+
 
 
 
@@ -37964,9 +37968,7 @@ module.exports = ReactPropTypesSecret;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ShowList__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ShowList__ = __webpack_require__(18);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37978,29 +37980,27 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+//function SearchBar({headerLinks, search, showList, activeLink}) {
 
-var SearchBar = function (_Component) {
-    _inherits(SearchBar, _Component);
+var SearchBar = function (_React$Component) {
+    _inherits(SearchBar, _React$Component);
 
-    function SearchBar() {
+    function SearchBar(props) {
         _classCallCheck(this, SearchBar);
 
-        //Initialize the state in the constructor
-        var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
+        var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
         _this.state = {
-            headerLinks: [],
-            search: 'Search...',
-            showList: null,
-            activeLink: 'On The Air',
+            source: props.source,
+            defaultList: props.defaultList,
+            headerLinks: props.headerLinks,
+            search: props.search,
+            showList: props.showList,
+            activeLink: props.activeLink,
             searchQuery: 'test'
         };
         return _this;
     }
-    /*componentDidMount() is a lifecycle method
-    * that gets called after the component is rendered
-    */
-
 
     _createClass(SearchBar, [{
         key: 'componentDidMount',
@@ -38008,7 +38008,7 @@ var SearchBar = function (_Component) {
             var _this2 = this;
 
             /* fetch API in action */
-            fetch('/square-binge/public/api/tv/headerLinks').then(function (response) {
+            fetch(this.state.source + 'headerLinks').then(function (response) {
                 return response.json();
             }).then(function (headerLinks) {
                 //Fetched posts is stored in the state
@@ -38016,13 +38016,13 @@ var SearchBar = function (_Component) {
                     search: headerLinks.search
                 });
             });
-            // fetch default showList
-            fetch('/square-binge/public/api/tv/on-the-air').then(function (response) {
+            // fetch default List
+            fetch(this.state.source + this.state.defaultList).then(function (response) {
                 return response.json();
             }).then(function (showList) {
                 //Fetched shows are stored in the state
                 _this2.setState({ showList: showList,
-                    activeLink: 'On The Air'
+                    activeLink: _this2.state.activeLink
                 });
             });
         }
@@ -38032,7 +38032,6 @@ var SearchBar = function (_Component) {
             var _this3 = this;
 
             return this.state.headerLinks.map(function (headerLink, i) {
-                var url = '/square-binge/public/';
                 if (_this3.state.activeLink === headerLink.string) {
                     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'a',
@@ -38058,7 +38057,7 @@ var SearchBar = function (_Component) {
         value: function handleClick(link, tab) {
             var _this4 = this;
 
-            fetch('/square-binge/public/api/tv/' + link).then(function (response) {
+            fetch(this.state.source + link).then(function (response) {
                 return response.json();
             }).then(function (showList) {
                 //Fetched posts is stored in the state
@@ -38079,7 +38078,7 @@ var SearchBar = function (_Component) {
                     this.renderHeader(),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'form',
-                        { autoComplete: "off", action: '/square-binge/public/tv/search' },
+                        { autoComplete: "off", action: this.state.source + 'search' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', name: "query",
                             placeholder: this.state.search.string })
                     )
@@ -38087,20 +38086,16 @@ var SearchBar = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'card-wrapper' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__ShowList__["a" /* default */], { shows: this.state.showList })
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__ShowList__["a" /* default */], { shows: this.state.showList })
                 )
             );
         }
     }]);
 
     return SearchBar;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-/* unused harmony default export */ var _unused_webpack_default_export = (SearchBar);
-/* The if statement is required so as to Render the component on pages that have a div with an ID of "reactContent"; */
-if (document.getElementById('reactContent')) {
-    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(SearchBar, null), document.getElementById('reactContent'));
-}
+/* harmony default export */ __webpack_exports__["a"] = (SearchBar);
 
 /***/ }),
 /* 48 */
@@ -55996,6 +55991,146 @@ module.exports = camelize;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SearchBar__ = __webpack_require__(47);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var MovieWrapper = function (_Component) {
+    _inherits(MovieWrapper, _Component);
+
+    function MovieWrapper() {
+        _classCallCheck(this, MovieWrapper);
+
+        //Initialize the state in the constructor
+        var _this = _possibleConstructorReturn(this, (MovieWrapper.__proto__ || Object.getPrototypeOf(MovieWrapper)).call(this));
+
+        _this.state = {
+            source: '/square-binge/public/api/movies/',
+            defaultList: 'now-playing',
+            headerLinks: [],
+            search: 'Search Movies...',
+            showList: null,
+            activeLink: 'Now Playing',
+            searchQuery: 'test'
+        };
+        return _this;
+    }
+
+    _createClass(MovieWrapper, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__SearchBar__["a" /* default */], { source: this.state.source,
+                    defaultList: this.state.defaultList,
+                    headerLinks: this.state.headerLinks,
+                    search: this.state.search,
+                    showList: this.state.showList,
+                    activeLink: this.state.activeLink })
+            );
+        }
+    }]);
+
+    return MovieWrapper;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (MovieWrapper);
+/* The if statement is required so as to Render the component on pages that have a div with an ID of "reactContent"; */
+if (document.getElementById('reactMovieWrapper')) {
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(MovieWrapper, null), document.getElementById('reactMovieWrapper'));
+}
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__SearchBar__ = __webpack_require__(47);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+var TvWrapper = function (_Component) {
+    _inherits(TvWrapper, _Component);
+
+    function TvWrapper() {
+        _classCallCheck(this, TvWrapper);
+
+        //Initialize the state in the constructor
+        var _this = _possibleConstructorReturn(this, (TvWrapper.__proto__ || Object.getPrototypeOf(TvWrapper)).call(this));
+
+        _this.state = {
+            source: '/square-binge/public/api/tv/',
+            defaultList: 'on-the-air',
+            headerLinks: [],
+            search: 'Search TV...',
+            showList: null,
+            activeLink: 'On The Air',
+            searchQuery: 'test'
+        };
+        return _this;
+    }
+
+    _createClass(TvWrapper, [{
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__SearchBar__["a" /* default */], { source: this.state.source,
+                    defaultList: this.state.defaultList,
+                    headerLinks: this.state.headerLinks,
+                    search: this.state.search,
+                    showList: this.state.showList,
+                    activeLink: this.state.activeLink })
+            );
+        }
+    }]);
+
+    return TvWrapper;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* unused harmony default export */ var _unused_webpack_default_export = (TvWrapper);
+/* The if statement is required so as to Render the component on pages that have a div with an ID of "reactContent"; */
+if (document.getElementById('reactTvWrapper')) {
+    __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TvWrapper, null), document.getElementById('reactTvWrapper'));
+}
 
 /***/ })
 /******/ ]);

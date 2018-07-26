@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 
-/* Stateless component or pure component
- * { showList } syntax is the object destructing
- */
 const ShowCard = ({show}) => {
 
     if(!show) {
-        return(<div>  show Doesnt exist </div>);
+        return(<div>  Item Doesnt exist </div>);
     }
 
     //Else, display the showList data
     {/*<div> {show.id}, {show.name} </div>*/}
     return <div>
         <div className="tvshow-wrap">
-            <div className="tvshow-date-2">{show.nextAirDate}</div>
+            <div className="tvshow-date-2">{show.date}</div>
             <div className="tvshow-card">
                 <div className="block-container">
                     <div className="tvshow-cover">

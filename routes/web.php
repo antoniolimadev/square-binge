@@ -11,3 +11,8 @@ Route::prefix('tv')->group(function () {
     Route::get('/', 'TvController@index');
     Route::get('/search', 'TvController@search');
 });
+
+Route::prefix('movies')->group(function () {
+    Route::get('/', 'MovieController@index');
+    Route::get('/search', 'MovieController@search');
+});

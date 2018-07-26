@@ -16,3 +16,5 @@ require('./bootstrap');
 import ShowCard from './components/ShowCard';
 import ShowList from './components/ShowList';
 import SearchBar from './components/SearchBar';
+import MovieWrapper from './components/MovieWrapper';
+import TvWrapper from './components/TvWrapper';

@@ -192,6 +192,21 @@ class DataScraper
         return $this->getResultsAsMovieArray($results, $howMany);
     }
 
+    public function getUpcoming($howMany = 10)
+    {
+        $upcomingFilePath = 'squarebinge/upcoming.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($upcomingFilePath)){
+            $this->api->requestUpcoming();
+        }
+        // read from storage
+        $rawJson = Storage::get($upcomingFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsMovieArray($results, $howMany);
+    }
+
     public function getResultsAsMovieArray($results, $howMany = 10){
         $movieCollection = collect();
 
