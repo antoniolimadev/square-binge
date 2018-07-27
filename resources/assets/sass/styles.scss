@@ -3,7 +3,7 @@
 $bg-color: #14181c;
 $light-grey: #969CA1;
 $contrast-gray: #6b6a66;
-$flat-green: #24a0ed;//#27C190;
+$flat-green: #1477BC;//#27C190; 24a0ed
 $bright-green: #72c02c;
 $component-background: #26292d;
 // dark gren color scheme
@@ -106,6 +106,7 @@ hr {
 .header-links a.active {
     color: $flat-green;
     border-bottom: 2px solid $flat-green;
+    font-weight: bold;
 }
 
 .welcome-banner {

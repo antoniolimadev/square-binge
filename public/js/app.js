@@ -629,6 +629,9 @@ var SearchBar = function (_React$Component) {
         value: function handleClick(link, tab) {
             var _this4 = this;
 
+            this.setState({ showList: null });
+            /* showList is set to null so that the ShowList component is cleared and
+            the loading animation is triggered again */
             fetch('/square-binge/public/api/' + this.state.source + link).then(function (response) {
                 return response.json();
             }).then(function (showList) {

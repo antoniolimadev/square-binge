@@ -58,6 +58,9 @@ class SearchBar extends React.Component {
     }
     // click function for each header link
     handleClick(link, tab) {
+        this.setState({ showList: null });
+        /* showList is set to null so that the ShowList component is cleared and
+        the loading animation is triggered again */
         fetch('/square-binge/public/api/' + this.state.source + link)
             .then(response => {
                 return response.json();
