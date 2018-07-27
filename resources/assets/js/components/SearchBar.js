@@ -17,7 +17,7 @@ class SearchBar extends React.Component {
 
     componentDidMount() {
         // fetch header links from API
-        fetch(this.state.source + 'headerLinks')
+        fetch('/square-binge/public/api/' + this.state.source + 'headerLinks')
             .then(response => {
                 return response.json();
             })
@@ -27,7 +27,7 @@ class SearchBar extends React.Component {
                 });
             });
         // fetch default List
-        fetch(this.state.source + this.state.defaultList)
+        fetch('/square-binge/public/api/' + this.state.source + this.state.defaultList)
             .then(response => {
                 return response.json();
             })
@@ -58,7 +58,7 @@ class SearchBar extends React.Component {
     }
     // click function for each header link
     handleClick(link, tab) {
-        fetch(this.state.source + link)
+        fetch('/square-binge/public/api/' + this.state.source + link)
             .then(response => {
                 return response.json();
             })
@@ -75,7 +75,7 @@ class SearchBar extends React.Component {
             <div>
                 <div className="topnav">
                     {this.renderHeader()}
-                    <form autoComplete={"off"} action={this.state.source + 'search'}>
+                    <form autoComplete={"off"} action={'/square-binge/public/' + this.state.source + 'search'}>
                         <input type="text" name={"query"}
                                placeholder={this.state.search.string }>
                         </input>

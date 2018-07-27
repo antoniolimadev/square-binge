@@ -54,7 +54,7 @@ class ApiController extends Controller
         array_push($headerLinks, ['link' => 'top-rated', 'string' => 'Top Rated']);
         $response = array();
         $response['links'] = $headerLinks;
-        $response['search'] = ['link' => '/movie/search', 'string' => 'Search Movies...'];
+        $response['search'] = ['link' => '/movies/search', 'string' => 'Search Movies...'];
         return response()->json($response, 201);
     }
 
@@ -67,6 +67,18 @@ class ApiController extends Controller
     public function movie_upcoming(){
         $dataScraper = new DataScraper();
         $showsDataArray = $dataScraper->getUpcoming(5);
+        return response()->json($this->buildMovieJsonResponse($showsDataArray), 201);
+    }
+
+    public function movie_popular(){
+        $dataScraper = new DataScraper();
+        $showsDataArray = $dataScraper->getPopularMovies(5);
+        return response()->json($this->buildMovieJsonResponse($showsDataArray), 201);
+    }
+
+    public function movie_topRated(){
+        $dataScraper = new DataScraper();
+        $showsDataArray = $dataScraper->getTopRatedMovies(5);
         return response()->json($this->buildMovieJsonResponse($showsDataArray), 201);
     }
 
@@ -93,7 +105,7 @@ class ApiController extends Controller
             //array_push($headerLinks, ['link' => 'on-the-air', 'string' => 'On The Air']);
             $jsonShow = [
                 'id' => $movie->id,
-                'date' => $movie->releaseDate,
+                'date' => Carbon::parse($movie->releaseDate)->year,
                 'cover' => $movie->posterPath,
                 'title' => $movie->name,
                 'year' => Carbon::parse($movie->releaseDate)->year,

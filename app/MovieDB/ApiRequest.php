@@ -113,6 +113,34 @@ class ApiRequest
         \Storage::put('squarebinge/upcoming.json', json_decode(json_encode($requestResponse)));
     }
 
+    public function requestTopRatedMovies()
+    {
+        $requestString = 'http://api.themoviedb.org/3/movie/top_rated?page=1&language=en-US&api_key=' .
+            $this->key;
+        $requestResponse = $this->curlRequest($requestString);
+
+        \Storage::put('squarebinge/top-rated-movies.json', json_decode(json_encode($requestResponse)));
+    }
+
+    public function requestPopularMovies()
+    {
+        $requestString = 'http://api.themoviedb.org/3/movie/popular?page=1&language=en-US&api_key=' .
+            $this->key;
+        $requestResponse = $this->curlRequest($requestString);
+
+        \Storage::put('squarebinge/popular-movies.json', json_decode(json_encode($requestResponse)));
+    }
+
+    public function requestMovieSearch($query){
+        $encondedQuery = urlencode($query);
+        $requestString = 'http://api.themoviedb.org/3/search/movie?query=' .
+            $encondedQuery .
+            '&api_key=' . $this->key .
+            '&language=en-US&page=1';
+        $requestResponse = $this->curlRequest($requestString);
+        return json_decode(json_encode($requestResponse));
+    }
+
     public function curlRequest($requestString)
     {
         $curl = curl_init();

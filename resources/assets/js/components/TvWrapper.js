@@ -7,7 +7,7 @@ class TvWrapper extends Component {
         super();
         //Initialize the state in the constructor
         this.state = {
-            source: '/square-binge/public/api/tv/',
+            source: 'tv/',
             defaultList: 'on-the-air',
             headerLinks: [],
             search: 'Search TV...',

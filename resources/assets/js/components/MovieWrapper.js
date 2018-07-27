@@ -7,7 +7,7 @@ class MovieWrapper extends Component {
         super();
         //Initialize the state in the constructor
         this.state = {
-            source: '/square-binge/public/api/movies/',
+            source: 'movies/',
             defaultList: 'now-playing',
             headerLinks: [],
             search: 'Search Movies...',

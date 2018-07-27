@@ -207,6 +207,43 @@ class DataScraper
         return $this->getResultsAsMovieArray($results, $howMany);
     }
 
+    public function getTopRatedMovies($howMany = 10){
+        $topRatedFilePath = 'squarebinge/top-rated-movies.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($topRatedFilePath)){
+            $this->api->requestTopRatedMovies();
+        }
+        // read from storage
+        $rawJson = Storage::get($topRatedFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsMovieArray($results, $howMany);
+    }
+
+    public function getPopularMovies($howMany = 10){
+        $popularMoviesFilePath = 'squarebinge/popular-movies.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($popularMoviesFilePath)){
+            $this->api->requestPopularMovies();
+        }
+        // read from storage
+        $rawJson = Storage::get($popularMoviesFilePath);
+        $json = json_decode($rawJson, true);
+        $results = $json['results'];
+
+        return $this->getResultsAsMovieArray($results, $howMany);
+    }
+
+    public function getMovieSearch($query){
+        $results =  json_decode($this->api->requestMovieSearch($query), true);
+        $resultsArray = $results['results'];
+        if ($results['total_results'] > 5){
+            return $this->getResultsAsMovieArray($resultsArray, 10);
+        }
+        return $this->getResultsAsMovieArray($resultsArray, sizeof($resultsArray));
+    }
+
     public function getResultsAsMovieArray($results, $howMany = 10){
         $movieCollection = collect();
 
