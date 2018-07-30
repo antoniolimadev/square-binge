@@ -8,7 +8,7 @@
 </head>
 <body>
     @include('layouts.nav')
-    <hr>
+
     <div class="content">
         @yield('content')
     </div>
@@ -18,6 +18,16 @@
     @include('layouts.footer')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ url('/') }}/js/app.js" ></script>
+    <script type="text/javascript">
+        function openLogin() {
+            $(".header-links").addClass('invisible');
+            $(".login-form").css("display", "block");
+        }
+        function closeLogin() {
+            $(".header-links").removeClass('invisible');
+            $(".login-form").css("display", "none");
+        }
+    </script>
     @yield('scripts')
 </body>
 </html>
