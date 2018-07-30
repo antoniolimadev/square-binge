@@ -1,12 +1,7 @@
 @extends ('layouts.master')
 
 @section('content')
-    <div class="content-wrapper">
-    @if(Auth::check())
-    <div class="welcome-banner">
-        Welcome, {{ Auth::user()->name }}. Here's your next binge.
-    </div>
-    @else
+<div class="content-wrapper">
     <div class="billboard-banner">
         <div class="billboard-row">
             <div class="billboard-title">
@@ -39,7 +34,5 @@
             </div>
         </div>
     </div>
-    @endif
-    </div>
-
+</div>
 @endsection

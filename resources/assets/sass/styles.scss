@@ -43,7 +43,7 @@ a {
 
 a:hover {
     color: $flat-green-hover;
-    transition: color 0.1s linear;
+    transition: color 0.2s linear;
 }
 
 .content {
@@ -89,16 +89,23 @@ a:hover {
 .header-links {
     float: right;
     width: 520px;
+    padding-bottom: 7px;
 }
 
 .header-links i {
     margin-right: 0.25em;
 }
 
+/*
+padding-bottom from '.header-links' and '.header-links a'
+and also margin-bottom from 'login-form' must be in sync
+so that the link borders can fit perfectly into the <hr> line
+and the login form doesn't push anything out of its place
+*/
 .header-links a {
-    float: left;
+    //float: left;
     text-align: center;
-    padding: 7px 20px;
+    padding: 5px 20px 10px 20px;
     text-decoration: none;
     font-size: 18px;
     line-height: 25px;
@@ -111,7 +118,7 @@ a:hover {
     color: $flat-green;
     //color: #27C190;
     border-bottom: 2px solid $flat-green;
-    transition: background-color 0.05s linear;
+    transition: color 0.1s linear, border-bottom 0.1s linear;
 }
 
 .header-links a.active {
@@ -198,6 +205,11 @@ a:hover {
     text-align: left;
 }
 
+.billboard-single-container:hover {
+    background-color: $flat-green-hover;
+    transition: background-color 0.2s linear;
+}
+
 .billboard-banner img {
     width: 230px;
 }
@@ -242,7 +254,7 @@ a:hover {
 }
 .button-primary:hover {
     background-color: $button-hover-color;
-    transition: background-color 0.05s linear;
+    transition: background-color 0.2s linear;
 }
 
 .card-wrapper {
@@ -426,6 +438,7 @@ a:hover {
 .topnav a:hover, .topnav a.active {
     background-color: #DEE7ED;
     color: $bg-color;
+    transition: background-color 0.3s linear, color 0.3s linear;
 }
 
 /* search box inside the nav bar */
@@ -555,7 +568,7 @@ a:hover {
     opacity: 0;
     z-index: -1337;
     display: none;
-    transition: visibility 0s 2s, opacity 2s linear;
+    transition: opacity 2s linear;
 }
 
 .login-form {
@@ -564,7 +577,7 @@ a:hover {
     z-index: 1000;
     display: none;
     margin-top: -40px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: #bcc8e1;
 }
 
@@ -631,5 +644,5 @@ a:hover {
 
 .login-button:hover {
     background-color: $flat-green-hover;
-    transition: background-color 0.1s linear;
+    transition: background-color 0.2s linear;
 }

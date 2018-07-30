@@ -8,7 +8,15 @@
 </head>
 <body>
     @include('layouts.nav')
-
+    @if(count($errors))
+        <div>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li> {{ $error }} </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="content">
         @yield('content')
     </div>
