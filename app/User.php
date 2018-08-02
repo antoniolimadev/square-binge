@@ -26,4 +26,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function userLists(){
+        return $this->hasMany(UserList::class);
+    }
+
+    public function following(){
+        $followingList = $this->hasMany(UserList::class)->where('name','Following')->get()->first();
+        return UserList::find($followingList->id)->items()->get();
+    }
+
+    public function watchlist(){
+        $watchlist = $this->hasMany(UserList::class)->where('name','Watchlist')->get()->first();
+        return UserList::find($watchlist->id)->items()->get();
+    }
 }

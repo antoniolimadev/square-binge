@@ -11,6 +11,57 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        DB::table('users')->insert([
+            [
+                'name' => 'adminer',
+                'email' => 'admin@squarebinge.com',
+                'password' => bcrypt('adminer'),
+            ],[
+                'name' => 'betatester',
+                'email' => 'beta@squarebinge.com',
+                'password' => bcrypt('betatester'),
+            ]
+        ]);
+
+        DB::table('item_types')->insert([
+            [
+                'name' => 'Show',
+                'keyword' => 'tv',
+            ],[
+                'name' => 'Movie',
+                'keyword' => 'movie',
+            ],[
+                'name' => 'People',
+                'keyword' => 'person',
+            ]
+        ]);
+
+        DB::table('user_lists')->insert([
+            [
+                'name' => 'Following',
+                'private' => true,
+                'user_id' => 1,
+                'description' => 'What I\'m following',
+                'removable' => false,
+            ],[
+                'name' => 'Watchlist',
+                'private' => true,
+                'user_id' => 1,
+                'description' => 'My watchlist',
+                'removable' => false,
+            ],[
+                'name' => 'Following',
+                'private' => true,
+                'user_id' => 2,
+                'description' => 'What I\'m following',
+                'removable' => false,
+            ],[
+                'name' => 'Watchlist',
+                'private' => true,
+                'user_id' => 2,
+                'description' => 'My watchlist',
+                'removable' => false,
+            ]
+        ]);
     }
 }

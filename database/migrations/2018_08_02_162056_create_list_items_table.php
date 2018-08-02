@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserListsTable extends Migration
+class CreateListItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateUserListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_lists', function (Blueprint $table) {
+        Schema::create('list_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->string('name');
-            $table->boolean('private');
-            $table->string('description');
-            $table->boolean('removable');
+            $table->integer('user_list_id');
+            $table->integer('moviedb_id');
+            $table->integer('item_type_id');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateUserListsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_lists');
+        Schema::dropIfExists('list_items');
     }
 }
