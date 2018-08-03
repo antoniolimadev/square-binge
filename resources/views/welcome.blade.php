@@ -24,7 +24,7 @@
             </div>
             <div class="block-container">
                 @foreach($movieArray as $movie)
-                    <a href="{{ url('/') . '/tv/' . $movie->id }}">
+                    <a href="{{ url('/') . '/movie/' . $movie->id }}">
                         <div class="billboard-single-container">
                             <img src="{{ $movie->bannerPath }}">
                             <div class="billboard-img-title">{{ $movie->name }}</div>
