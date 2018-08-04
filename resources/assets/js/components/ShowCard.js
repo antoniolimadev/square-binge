@@ -13,7 +13,7 @@ class ShowCard extends React.Component {
         //TODO: change axios to fetch
         axios.post('http://localhost/square-binge/public/lists', {
             id: show.id,
-            title: show.title
+            type: show.type
         }).then(function (response) {
                 console.log(response);
         }).catch(function (error) {

@@ -36,6 +36,23 @@ class User extends Authenticatable
         return UserList::find($followingList->id)->items()->get();
     }
 
+    public function follow($id, $type){
+        // user's following list id
+        $followListId = $followingList = $this->hasMany(UserList::class)
+            ->where('name','Following')
+            ->get()->first()->id;
+
+        // item type id
+        $typeId = ItemType::where('keyword', $type)->get()->first()->id;
+
+        // store the item if it doesn't exist
+        ListItem::firstOrCreate([
+           'user_list_id' => $followListId,
+           'moviedb_id' => $id,
+           'item_type_id' => $typeId
+        ]);
+    }
+
     public function watchlist(){
         $watchlist = $this->hasMany(UserList::class)->where('name','Watchlist')->get()->first();
         return UserList::find($watchlist->id)->items()->get();

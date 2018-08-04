@@ -88,6 +88,7 @@ class ApiController extends Controller
             //array_push($headerLinks, ['link' => 'on-the-air', 'string' => 'On The Air']);
             $jsonShow = [
                 'id' => $show->id,
+                'type' => 'tv',
                 'date' => $show->readableAirDate,
                 'cover' => $show->posterPath,
                 'title' => $show->name,
@@ -105,6 +106,7 @@ class ApiController extends Controller
             //array_push($headerLinks, ['link' => 'on-the-air', 'string' => 'On The Air']);
             $jsonShow = [
                 'id' => $movie->id,
+                'type' => 'movie',
                 'date' => Carbon::parse($movie->releaseDate)->year,
                 'cover' => $movie->posterPath,
                 'title' => $movie->name,

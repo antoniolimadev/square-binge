@@ -23,7 +23,9 @@ class UserListsController extends Controller
     }
 
     public function store(){
-        $test = request('title');
-        return response()->json('Received: ' . $test, 201);
+        $id = request('id');
+        $type = request('type');
+        User::find(auth()->id())->follow($id, $type);
+        return response()->json('Followed', 201);
     }
 }
