@@ -14,11 +14,12 @@ class UserListsController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth', ['only' => ['store']]);
     }
 
     public function index(){
 
-        $followingList = User::find(auth()->id())->following();
+        $followingList = null; //User::find(auth()->id())->following();
         return view('lists.index', compact('followingList'));
     }
 

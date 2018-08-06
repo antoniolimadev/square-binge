@@ -46,6 +46,18 @@ class ApiController extends Controller
         return response()->json($this->buildJsonResponse($showsDataArray), 201);
     }
 
+    public function tv_search(){
+        $searchResults = null;
+        if (request(['query'])){
+            $request = trim(request(['query'])['query']);
+            if (!empty($request)) {
+                $dataScraper = new DataScraper();
+                $searchResults = $dataScraper->getTvSearch($request);
+            }
+        }
+        return response()->json($this->buildJsonResponse($searchResults), 201);
+    }
+
     public function movie_headerLinks(){
         $headerLinks = array();
         array_push($headerLinks, ['link' => 'now-playing', 'string' => 'Now Playing']);

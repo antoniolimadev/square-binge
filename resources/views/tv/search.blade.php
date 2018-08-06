@@ -5,7 +5,7 @@
         {{-- SEARCHBOX --}}
         <form autoComplete="off" action="/square-binge/public/tv/search">
             <div class="search-box">
-                @if($searchResults)
+                @if($query)
                 <input type="text" value="{{ request(['query'])['query'] }}" name="query" placeholder="Search TV..."/>
                 @else
                 <input type="text" name="query" placeholder="Search TV..."/>
@@ -24,25 +24,7 @@
                 </div>
             </div>
         </form>
-        {{--<option>Next Episode</option>--}}
-        {{--<option>First Release</option>--}}
-        {{--<option>Name</option>--}}
-        @if($searchResults)
-        <div class="card-wrapper">
-            @foreach($searchResults as $show)
-                @component('components.tvshow')
-                    @slot('airDate')
-                        {{  $show->readableAirDate }}
-                    @endslot
-                    @slot('cover') {{ $show->posterPath }} @endslot
-                    @slot('title') {{ $show->name }} @endslot
-                    @slot('year') {{ $show->firstAirDate }} @endslot
-                    @slot('overview') {{ str_limit($show->overview, 260) }} @endslot
-                    @slot('otherInfo') [more info] @endslot
-                @endcomponent
-            @endforeach
-        </div>
-        @endif
+        <div id="reactSearchWrapper"></div>
     </div>
 @endsection
 @section('scripts')

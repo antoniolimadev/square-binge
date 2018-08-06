@@ -16,14 +16,7 @@ class TvController extends Controller
     }
 
     public function search(){
-        $searchResults = null;
-        if (request(['query'])){
-            $request = trim(request(['query'])['query']);
-            if (!empty($request)) {
-                $dataScraper = new DataScraper();
-                $searchResults = $dataScraper->getTvSearch($request);
-            }
-        }
-        return view('tv.search', compact('searchResults'));
+        $query = trim(request(['query'])['query']);
+        return view('tv.search', compact('query'));
     }
 }

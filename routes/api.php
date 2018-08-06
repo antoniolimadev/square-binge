@@ -23,6 +23,7 @@ Route::prefix('tv')->group(function () {
     Route::get('/airing-today', 'ApiController@tv_airingToday');
     Route::get('/popular', 'ApiController@tv_popular');
     Route::get('/top-rated', 'ApiController@tv_topRated');
+    Route::get('/search', 'ApiController@tv_search');
 });
 
 Route::prefix('movies')->group(function () {
