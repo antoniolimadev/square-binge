@@ -618,3 +618,34 @@ and the login form doesn't push anything out of its place
   transition: background-color 0.2s linear;
 }
 
+.list-hr {
+  border: 0;
+  border-top: 1px solid #24445A;
+}
+
+.list-content {
+  display: inline-block;
+  text-align: center;
+  width: 800px;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.thumbnail-stack {
+  text-align: left;
+  margin-left: 50px;
+}
+
+.overlapped {
+  position: relative;
+  margin-left: -50px;
+}
+
+.overlapped img {
+  height: 150px;
+  border-radius: 6px;
+  border: 1px solid #24445A;
+  -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.16), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+}
+

@@ -18,3 +18,9 @@ Route::prefix('movies')->group(function () {
     Route::get('/', 'MovieController@index');
     Route::get('/search', 'MovieController@search');
 });
+
+Route::prefix('user/{user}')->group(function () {
+    Route::get('/', 'HomeController@home');
+    Route::get('/lists', 'UserListsController@lists');
+    Route::get('/lists/{list}', 'UserListsController@list');
+});

@@ -17,6 +17,11 @@ class DataScraper
         //$this->imgUrlPrefix = 'https://image.tmdb.org/t/p/w200';
     }
 
+    // receives a ListItem array and returns an array of poster images
+    public function getPosterArray($itemList){
+
+    }
+
     public function getResultsAsShowArray($results, $howMany = 10){
         $onTheAirCollection = collect();
 
@@ -133,7 +138,15 @@ class DataScraper
 
     // status: ['Returning Series', 'Planned', 'In Production', 'Ended', 'Canceled', 'Pilot']
     public function getShow($showId){
-        return $this->api->requestShow($showId); // TODO: uncomment this when in production
+        $showFilePath = 'squarebinge/shows/show-' . $showId . '.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($showFilePath)){
+            $this->api->requestShow($showId);
+        }
+        // read show from storage
+        $showRaw = Storage::get($showFilePath);
+        $showInfo = json_decode($showRaw, true);
+        return $showInfo;
     }
 
     public function getNextEpisode($currentSeasonInfo)
@@ -233,6 +246,18 @@ class DataScraper
         $results = $json['results'];
 
         return $this->getResultsAsMovieArray($results, $howMany);
+    }
+
+    public function getMovie($movieId){
+        $movieFilePath = 'squarebinge/movies/movie-' . $movieId . '.json';
+        // if file doesnt exist, request it
+        if (!Storage::exists($movieFilePath)){
+            $this->api->requestShow($movieId);
+        }
+        // read show from storage
+        $movieRaw = Storage::get($movieFilePath);
+        $movieInfo = json_decode($movieRaw, true);
+        return $movieInfo;
     }
 
     public function getMovieSearch($query){

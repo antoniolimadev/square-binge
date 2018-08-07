@@ -14,6 +14,6 @@ class UserList extends Model
     }
 
     public function items(){
-        return $this->hasMany(ListItem::class);
+        return $this->hasMany(ListItem::class)->get();
     }
 }

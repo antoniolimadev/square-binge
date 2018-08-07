@@ -25,6 +25,7 @@ $card-footer-height: 35px;
 $button-primary-color: #3e4e48;
 $button-hover-color: #1C2522;
 $margin-from-navbar: 50px;
+$overlap-offset: 120px;
 
 body {
     background-color: $bg-color;
@@ -645,4 +646,42 @@ and the login form doesn't push anything out of its place
 .login-button:hover {
     background-color: $flat-green-hover;
     transition: background-color 0.2s linear;
+}
+
+// LISTS
+
+.list-hr {
+    border: 0;
+    border-top: 1px solid #24445A;
+}
+
+.list-content {
+    display: inline-block;
+    text-align: center;
+    width: $content-width;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.thumbnail-stack {
+    text-align: left;
+    margin-left: 50px;
+    //border: 2px solid transparent;
+}
+
+.thumbnail-stack:hover {
+    //border: 2px solid $flat-green-hover;
+}
+
+.overlapped {
+    position: relative;
+    margin-left: -50px;
+}
+
+.overlapped img {
+    height: 150px;
+    border-radius: 6px;
+    border: 1px solid #24445A;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.16),
+    0 2px 4px 0 rgba(0,0,0,0.12);
 }

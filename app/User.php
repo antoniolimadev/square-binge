@@ -28,7 +28,7 @@ class User extends Authenticatable
     ];
 
     public function userLists(){
-        return $this->hasMany(UserList::class);
+        return $this->hasMany(UserList::class)->get();
     }
 
     public function following(){

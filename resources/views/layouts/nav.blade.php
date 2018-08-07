@@ -3,7 +3,7 @@
     <span class="header-subtitle">Never miss a release again.</span>
     <div class="header-links">
     @if(Auth::check())
-        <a href="{{ url('/home') }}"><i class="fa fa-home"></i> {{ Auth::user()->name }} </a>
+        <a id="user_id" href="{{ url('/user') . '/' . Auth::user()->id }}"><i class="fa fa-home"></i> {{ Auth::user()->name }} </a>
         <a href="{{ route('logout') }}"
            onclick="event.preventDefault();
            document.getElementById('logout-form').submit();">
