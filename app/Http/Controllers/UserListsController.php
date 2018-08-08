@@ -40,11 +40,12 @@ class UserListsController extends Controller
         $userLists = User::find($id)->userLists();
 
         foreach ($userLists as $list){
-            $listItems = $this->getListItems($list->id);
+            $listItems = $this->getListItems($list->id)->reverse();
             $listThumbnails = $this->createThumbnailArray($listItems);
             $list->setAttribute('thumbnails', $listThumbnails);
+            $list->setAttribute('total', $listItems->count());
         }
-
+        //dd($userLists);
         return view('lists.lists', compact('userLists'));
     }
 
@@ -79,9 +80,15 @@ class UserListsController extends Controller
             $posterUrl = 'https://image.tmdb.org/t/p/w200'. $currentTitle['poster_path'];
             $thumbnails->prepend($posterUrl);
             if ($thumbnails->count() == $howMany){
-                return $thumbnails;
+                return $thumbnails->reverse();
             }
         }
-        return $thumbnails;
+        if ($thumbnails->count() < $howMany){
+            for ($i = $thumbnails->count(); $i < $howMany; $i++){
+                $posterUrl = null;
+                $thumbnails->prepend($posterUrl);
+            }
+        }
+        return $thumbnails->reverse();
     }
 }

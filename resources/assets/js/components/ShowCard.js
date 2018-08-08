@@ -9,7 +9,8 @@ class ShowCard extends React.Component {
         }
     }
 
-    follow(show) {
+    follow(show, e) {
+        e.preventDefault();
         //TODO: change axios to fetch
         axios.post('http://localhost/square-binge/public/lists', {
             id: show.id,
@@ -38,7 +39,7 @@ class ShowCard extends React.Component {
                                 <div className="tvshow-overview"> {this.state.show.overview} </div>
                                 <div className="tvshow-other"> [more info]</div>
                             </div>
-                            <a onClick={ () => this.follow(this.state.show) } href="#" className="button-follow">Follow</a>
+                            <a onClick={ (e) => this.follow(this.state.show, e) } href="#" className="button-follow">Follow</a>
                         </div>
                     </div>
                 </div>

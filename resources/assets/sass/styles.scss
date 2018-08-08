@@ -3,7 +3,7 @@
 $bg-color: #14181c;
 $light-grey: #969CA1;
 $contrast-gray: #6b6a66;
-$flat-green: #1477BC;//#27C190; 24a0ed
+$flat-green: #075C98; //#1477BC;//#27C190;
 $flat-green-hover: #24a0ed;
 $bright-green: #72c02c;
 $component-background: #26292d;
@@ -648,22 +648,53 @@ and the login form doesn't push anything out of its place
     transition: background-color 0.2s linear;
 }
 
+// USERS
+
+.user-section {
+    display: inline-block;
+    width: $content-width;
+    margin-bottom: -14px;
+}
+
+.user-section-title {
+    position: relative;
+    text-align: left;
+    float: left;
+    font-size: 18px;
+    padding: 5px;
+    color: #bcc8e1;
+    bottom: -6px;
+}
+
 // LISTS
+
+.list-box {
+    margin-top: 15px;
+    text-align: center;
+    padding: 5px;
+}
 
 .list-hr {
     border: 0;
     border-top: 1px solid #24445A;
+    margin: 15px 0;
 }
 
-.list-content {
+.list-wrapper {
     display: inline-block;
     text-align: center;
     width: $content-width;
-    margin-top: 5px;
+    //margin-top: 5px;
     margin-left: 10px;
 }
 
+.list-content {
+    display: flex;
+    text-align: left;
+}
+
 .thumbnail-stack {
+    display: flex;
     text-align: left;
     margin-left: 50px;
     //border: 2px solid transparent;
@@ -674,14 +705,80 @@ and the login form doesn't push anything out of its place
 }
 
 .overlapped {
+    //display: block;
     position: relative;
     margin-left: -50px;
 }
 
-.overlapped img {
+.overlapped img, .blank-overlapped {
     height: 150px;
     border-radius: 6px;
     border: 1px solid #24445A;
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.16),
     0 2px 4px 0 rgba(0,0,0,0.12);
+}
+
+.blank-overlapped {
+    width: 100px;
+    background-color: #111;
+}
+
+.list-details {
+    display: block;
+    padding-left: 20px;
+}
+
+// top-row
+.list-title {
+    text-align: left;
+    padding: 20px 0;
+    font-size: 16px;
+}
+
+// mid-row
+.list-mid {
+    display: flex;
+    text-align: left;
+    font-size: 13px;
+}
+
+// bottom-row
+.list-description {
+    padding: 15px 0;
+    font-size: 15px;
+    color: #bcc8e1;
+}
+
+.list-badge {
+    margin-left: 10px;
+    margin-top: -3px;
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #bcc8e1;
+    text-align: center;
+    background-color: #24445A;
+    border-radius: 4px;
+}
+
+.new-list-button {
+    position: relative;
+    float: right;
+    background-color: #24445A;
+    border: none;
+    color: #DEE7ED;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.new-list-button:hover {
+    color: white;
+    background-color: #2c5978;
 }
