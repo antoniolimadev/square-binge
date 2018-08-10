@@ -429,17 +429,20 @@ and the login form doesn't push anything out of its place
     display: block;
     color: $text-color-contrast;
     text-align: center;
-    padding: 11px 22px;
+    padding: 10px 22px;
     text-decoration: none;
     font-size: 15px;
     font-weight: bold;
     border-right: 1px solid #24445A;
+    border-bottom: 2px solid transparent;
 }
 
 .topnav a:hover, .topnav a.active {
-    background-color: #DEE7ED;
-    color: $bg-color;
-    transition: background-color 0.3s linear, color 0.3s linear;
+    //background-color: #DEE7ED;
+    //color: $bg-color;
+    //transition: background-color 0.3s linear, color 0.3s linear;
+    border-bottom: 2px solid #DEE7ED;
+    transition: border-bottom 0.07s linear;
 }
 
 /* search box inside the nav bar */

@@ -40,7 +40,7 @@ class UserListsController extends Controller
         $userLists = User::find($id)->userLists();
 
         foreach ($userLists as $list){
-            $listItems = $this->getListItems($list->id)->reverse();
+            $listItems = $this->getListItems($list->id);
             $listThumbnails = $this->createThumbnailArray($listItems);
             $list->setAttribute('thumbnails', $listThumbnails);
             $list->setAttribute('total', $listItems->count());
@@ -51,14 +51,13 @@ class UserListsController extends Controller
 
     //user/{user}/lists/list_id
     public function list($id){
-
         $listItems = $this->getListItems($id);
-
         return view('lists.list', compact('listItems'));
     }
 
     public function getListItems($listId){
-        return UserList::find($listId)->items();
+        return UserList::find($listId)
+            ->items();
     }
 
     public function createThumbnailArray($listItems, $howMany = 5){
@@ -67,7 +66,8 @@ class UserListsController extends Controller
         $tvTypeId = ItemType::where('keyword', 'tv')->get()->first()->id;
         $movieTypeId = ItemType::where('keyword', 'movie')->get()->first()->id;
 
-        foreach ($listItems as $item){
+        $lastFiveListItems = $listItems->take(-$howMany);
+        foreach ($lastFiveListItems as $item){
             $currentTitle = null;
             switch ($item->item_type_id) {
                 case $tvTypeId:
@@ -79,9 +79,6 @@ class UserListsController extends Controller
             }
             $posterUrl = 'https://image.tmdb.org/t/p/w200'. $currentTitle['poster_path'];
             $thumbnails->prepend($posterUrl);
-            if ($thumbnails->count() == $howMany){
-                return $thumbnails->reverse();
-            }
         }
         if ($thumbnails->count() < $howMany){
             for ($i = $thumbnails->count(); $i < $howMany; $i++){
@@ -89,6 +86,6 @@ class UserListsController extends Controller
                 $thumbnails->prepend($posterUrl);
             }
         }
-        return $thumbnails->reverse();
+        return $thumbnails;
     }
 }

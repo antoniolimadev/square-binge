@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     public function follow($id, $type){
         // user's following list id
-        $followListId = $followingList = $this->hasMany(UserList::class)
+        $followListId = $this->hasMany(UserList::class)
             ->where('name','Following')
             ->get()->first()->id;
 
