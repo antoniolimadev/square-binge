@@ -14,19 +14,25 @@
                     <div class="thumbnail-stack">
                         @php $z = 5; @endphp
                         @foreach($list->thumbnails as $poster)
-                            <div class="overlapped" style="z-index: {{ $z }};">
+                            <div class="thumbnail-poster" style="z-index: {{ $z }};">
                                 @if($poster)
                                     <img src="{{ $poster }}">
-                                @else
-                                    <div class="blank-overlapped"></div>
+                                {{--@else--}}
+                                    {{--<div class="blank-overlapped"></div>--}}
                                 @endif
                             </div>
                             @php $z = $z - 1; @endphp
                         @endforeach
                     </div>
                     <div class="list-details">
-                        <div class="billboard-title">
-                            <a href="{{ url()->current() . '/' . $list['id'] }}">{{ $list['name'] }}</a>
+                        <div class="list-header">
+                            <div class="billboard-title">
+                                <a href="{{ url()->current() . '/' . $list['id'] }}">{{ $list['name'] }}</a>
+                            </div>
+                            <div class="list-options">
+                                <a href="#"><i class="fa fa-edit"></i></a>
+                                <a href="#"><i class="fa fa-trash-o"></i></a>
+                            </div>
                         </div>
                         <div class="list-mid">
                             <div>{{ $list->total }} items</div>

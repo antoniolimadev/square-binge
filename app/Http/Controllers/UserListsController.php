@@ -50,8 +50,8 @@ class UserListsController extends Controller
     }
 
     //user/{user}/lists/list_id
-    public function list($id){
-        $listItems = $this->getListItems($id);
+    public function list($user_id, $user_list_id){
+        $listItems = $this->getListItems($user_list_id);
         return view('lists.list', compact('listItems'));
     }
 
@@ -83,7 +83,7 @@ class UserListsController extends Controller
         if ($thumbnails->count() < $howMany){
             for ($i = $thumbnails->count(); $i < $howMany; $i++){
                 $posterUrl = null;
-                $thumbnails->prepend($posterUrl);
+                $thumbnails->push($posterUrl);
             }
         }
         return $thumbnails;
