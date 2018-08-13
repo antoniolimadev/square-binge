@@ -16,4 +16,11 @@ class UserList extends Model
     public function items(){
         return $this->hasMany(ListItem::class)->orderBy('created_at')->get();
     }
+
+    public function lastUpdated(){
+        $lastItem = $this->hasMany(ListItem::class)
+            ->orderBy('created_at')
+            ->get()->first();
+        return $lastItem->created_at->diffForHumans();
+    }
 }

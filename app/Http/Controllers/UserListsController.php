@@ -50,7 +50,7 @@ class UserListsController extends Controller
     }
 
     //user/{user}/lists/list_id
-    public function list($user_id, $user_list_id){
+    public function list($user_list_id){
         $listItems = $this->getListItems($user_list_id);
         return view('lists.list', compact('listItems'));
     }

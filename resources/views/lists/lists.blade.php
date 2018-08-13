@@ -17,8 +17,6 @@
                             <div class="thumbnail-poster" style="z-index: {{ $z }};">
                                 @if($poster)
                                     <img src="{{ $poster }}">
-                                {{--@else--}}
-                                    {{--<div class="blank-overlapped"></div>--}}
                                 @endif
                             </div>
                             @php $z = $z - 1; @endphp
@@ -27,7 +25,7 @@
                     <div class="list-details">
                         <div class="list-header">
                             <div class="billboard-title">
-                                <a href="{{ url()->current() . '/' . $list['id'] }}">{{ $list['name'] }}</a>
+                                <a href="{{ url('/') . '/lists/' . $list['id'] }}">{{ $list['name'] }}</a>
                             </div>
                             <div class="list-options">
                                 <a href="#"><i class="fa fa-edit"></i></a>

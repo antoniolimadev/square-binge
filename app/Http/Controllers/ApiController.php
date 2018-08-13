@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\UserList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\MovieDB\DataScraper;
@@ -92,6 +94,39 @@ class ApiController extends Controller
         $dataScraper = new DataScraper();
         $showsDataArray = $dataScraper->getTopRatedMovies(5);
         return response()->json($this->buildMovieJsonResponse($showsDataArray), 201);
+    }
+
+    public function list($user_list_id)
+    {
+        $dataScraper = new DataScraper();
+        $list = UserList::find($user_list_id);
+        $owner = User::find($list->user_id);
+        $listItems =  UserList::find($user_list_id)->items();
+
+        $details = [
+            'owner_name' => $owner->name,
+            'owner_id' => $owner->id,
+            'list_name' => $list->name,
+            'list_id' => $list->id,
+            'private' => $list->private,
+            'last_updated' => $list->lastUpdated()
+        ];
+        $itemsArray = array();
+        foreach ($listItems as $item){
+            $itemInfo = $dataScraper->getSingleTitleInfo($item->moviedb_id, $item->item_type_id);
+            $jsonItem = [
+                'id' => $item->moviedb_id,
+                'name' => $itemInfo->name,
+                'date' => $itemInfo->readableReleaseDate,
+                'poster' => $itemInfo->poster,
+                'follow' => false
+            ];
+            array_push($itemsArray, $jsonItem);
+        }
+        $response = array();
+        $response['details'] = $details;
+        $response['items'] = $itemsArray;
+        return response()->json($response, 201);
     }
 
     public function buildJsonResponse($showsDataArray){

@@ -109,19 +109,19 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],[
                 'user_list_id' => 2,
-                'moviedb_id' => 70513,
+                'moviedb_id' => 64230,
                 'item_type_id' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],[
                 'user_list_id' => 2,
-                'moviedb_id' => 70513,
+                'moviedb_id' => 80730,
                 'item_type_id' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],[
                 'user_list_id' => 2,
-                'moviedb_id' => 70513,
+                'moviedb_id' => 60059,
                 'item_type_id' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')

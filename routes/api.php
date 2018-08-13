@@ -33,3 +33,5 @@ Route::prefix('movies')->group(function () {
     Route::get('/popular', 'ApiController@movie_popular');
     Route::get('/top-rated', 'ApiController@movie_topRated');
 });
+
+Route::get('/lists/{list}', 'ApiController@list');

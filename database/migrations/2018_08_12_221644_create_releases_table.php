@@ -17,7 +17,7 @@ class CreateReleasesTable extends Migration
             $table->increments('id');
             $table->integer('moviedb_id');
             $table->integer('item_type_id');
-            $table->dateTime('release_date');
+            $table->dateTime('release_date')->nullable();
             $table->timestamps();
         });
     }

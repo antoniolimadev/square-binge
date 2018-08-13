@@ -2,11 +2,14 @@
 
 @section('user-content')
 
-    <h1>List</h1>
+    <div id="reactList"></div>
 
-    @foreach($listItems as $item)
-        <a href="#">{{ $item['id'] }}: {{ $item['moviedb_id'] }}</a>
-        <br>
-    @endforeach
-
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".topnav").find(".active").removeClass("active");
+            $(".topnav a:contains('Lists')").addClass('active');
+        });
+    </script>
 @endsection

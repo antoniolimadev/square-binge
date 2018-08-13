@@ -304,16 +304,117 @@ and the login form doesn't push anything out of its place
     margin-top: 5px;
 }
 
-.tvshow-card {
+%tvshow-card-shared {
     display: inline-block;
     width: $content-width - 100;
-    height: $poster-height;
     text-align: left;
     background-color: $component-background;
     border-radius: 2px;
     border-right: 3px solid $flat-green;
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.16),
     0 2px 4px 0 rgba(0,0,0,0.12);
+}
+
+.tvshow-card {
+    @extend %tvshow-card-shared;
+    height: $poster-height;
+}
+
+.tvshow-card-minimal {
+    @extend %tvshow-card-shared;
+    height: $poster-height/2;
+}
+
+%tvshow-cover-shared {
+    display: block;
+    float: left;
+    width: 20%;
+}
+
+.tvshow-cover {
+    @extend %tvshow-cover-shared;
+}
+
+.tvshow-cover-minimal {
+    @extend %tvshow-cover-shared;
+}
+
+.tvshow-cover img {
+    height: $poster-height;
+    width: 120px;
+}
+
+.tvshow-cover-minimal img {
+    height: $poster-height/2;
+    width: auto;
+}
+
+.single-list-box {
+    margin-top: 15px;
+    text-align: center;
+    padding: 5px;
+}
+
+.single-list-hr {
+    border: 0;
+    border-top: 1px solid #24445A;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    width: $content-width - 100;
+}
+
+.single-list-wrapper {
+    display: inline-block;
+    text-align: center;
+    width: $content-width - 100;
+    //margin-top: 5px;
+    margin-left: 10px;
+}
+
+.single-list-header {
+    text-align: left;
+    width: $content-width - 100;
+    display: inline-block;
+}
+
+.single-list-owner {
+    display: inline-block;
+    left: 0;
+    text-align: left;
+}
+
+.single-list-title {
+    position: relative;
+    text-align: left;
+    font-size: 18px;
+    padding: 0 5px;
+    color: #bcc8e1;
+    bottom: -6px;
+    float: left;
+}
+
+.single-list-badge {
+    margin-left: 3px;
+    margin-top: 5px;
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #bcc8e1;
+    text-align: center;
+    background-color: #24445A;
+    border-radius: 4px;
+    float: left;
+}
+
+.single-list-updated {
+    left: 0;
+    margin-top: 10px;
+    padding: 0 5px;
+    text-align: left;
+    font-size: 14px;
+    color: $flat-green-hover;
 }
 
 .tvshow-date {
@@ -344,12 +445,6 @@ and the login form doesn't push anything out of its place
     color: $text-color-contrast;
 }
 
-.tvshow-cover {
-    display: block;
-    float: left;
-    width: 20%;
-}
-
 .tvshow-info {
     padding: 15px 0;
     display: block;
@@ -368,10 +463,6 @@ and the login form doesn't push anything out of its place
     color: #5a7068;
 }
 
-.tvshow-cover img {
-    height: $poster-height;
-    width: 120px;
-}
 
 .tvshow-overview {
     font-size: 13px;
@@ -386,7 +477,7 @@ and the login form doesn't push anything out of its place
     padding: 7px 2px;
 }
 
-.button-follow {
+%button-follow {
     position: absolute;
     float: right;
     background-color: transparent;
@@ -394,8 +485,6 @@ and the login form doesn't push anything out of its place
     border-radius: 4px;
     color: $text-color-contrast;
     padding: 5px 0;
-    margin-top: 130px;
-    margin-left: 560px;
     width: 110px;
     text-align: center;
     text-decoration: none;
@@ -403,6 +492,18 @@ and the login form doesn't push anything out of its place
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.button-follow {
+    @extend %button-follow;
+    margin-top: 130px;
+    margin-left: 560px;
+}
+
+.list-button-follow {
+    @extend %button-follow;
+    margin-top: 33px;
+    margin-left: 560px;
 }
 
 .button-follow:hover {
@@ -514,7 +615,7 @@ and the login form doesn't push anything out of its place
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
 }
 

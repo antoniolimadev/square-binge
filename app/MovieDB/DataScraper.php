@@ -2,6 +2,8 @@
 
 namespace App\MovieDB;
 
+use App\ItemType;
+use App\Release;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Collection;
 use App\MovieDB\TvShow;
@@ -26,27 +28,9 @@ class DataScraper
         $onTheAirCollection = collect();
 
         foreach ($results as $show) {
-            // -------------------- request show --------------------
-            $showFilePath = 'squarebinge/shows/show-' . $show['id'] . '.json';
-            // if file doesnt exist, request it
-            if (!Storage::exists($showFilePath)){
-                $this->api->requestShow($show['id']);
-            }
-            // read show from storage
-            $showRaw = Storage::get($showFilePath);
-            $currentShowInfo = json_decode($showRaw, true);
-
-            // -------------------- request season --------------------
-            $seasonFilePath = 'squarebinge/shows/show-' . $show['id'] . '-last-season.json';
-            // if season file doesnt exist, request it
-            if (!Storage::exists($seasonFilePath)){
-                $this->getSeason($show['id'], $currentShowInfo['number_of_seasons']);
-            }
-            // read season from storage
-            $seasonRaw = Storage::get($seasonFilePath);
-            $currentSeasonInfo = json_decode($seasonRaw, true);
-
-            $nextEpisodeDate = $this->getNextEpisode($currentSeasonInfo);
+            $currentShowInfo = $this->getShow($show['id']);
+            //type 1 = tv
+            $nextEpisodeDate = $this->getReleaseDate($show['id'], 1, $currentShowInfo);
             // -------------------- create new TvShow object --------------------
             $newSHow = new TvShow(
                 $show['id'],
@@ -163,6 +147,95 @@ class DataScraper
             }
         }
         return null;
+    }
+
+    public function getReleaseDate($id, $type, $itemInfo = null){
+        $tvTypeId = ItemType::where('keyword', 'tv')->get()->first()->id;
+        $movieTypeId = ItemType::where('keyword', 'movie')->get()->first()->id;
+        $title = null;
+        $releaseDate = Release::where([
+            ['moviedb_id', $id],
+            ['item_type_id', $type],
+        ])->get()->first();
+        if ($releaseDate){
+            return $releaseDate->release_date;
+        }
+        switch ($type) {
+            case $tvTypeId:
+                if (!$itemInfo){
+                    $itemInfo = $this->getShow($id);
+                }
+                $seasonFilePath = 'squarebinge/shows/show-' . $id . '-last-season.json';
+                // if season file doesnt exist, request it
+                if (!Storage::exists($seasonFilePath)){
+                    $this->getSeason($id, $itemInfo['number_of_seasons']);
+                }
+                // read season from storage
+                $seasonRaw = Storage::get($seasonFilePath);
+                $currentSeasonInfo = json_decode($seasonRaw, true);
+
+                $nextEpisodeDate = $this->getNextEpisode($currentSeasonInfo);
+                Release::create([
+                   'moviedb_id' => $id,
+                   'item_type_id' => $type,
+                   'release_date' => $nextEpisodeDate
+                ]);
+                return $nextEpisodeDate;
+                break;
+            case $movieTypeId:
+                $title = $this->getMovie($id);
+                break;
+        }
+    }
+
+    public function getSingleTitleInfo($id, $type){
+        $tvTypeId = ItemType::where('keyword', 'tv')->get()->first()->id;
+        $movieTypeId = ItemType::where('keyword', 'movie')->get()->first()->id;
+
+        switch ($type) {
+            case $tvTypeId:
+                // get title info
+                $titleInfo = $this->getShow($id);
+                // get title release date from db
+                $releaseDate = null;
+                $release = Release::where([
+                    ['moviedb_id', $id],
+                    ['item_type_id', $type],
+                ])->get()->first();
+                // if no release date available
+                if ($release) {
+                    $releaseDate = $release->release_date;
+                } else {
+                    $seasonFilePath = 'squarebinge/shows/show-' . $id . '-last-season.json';
+                    // if season file doesnt exist, request it
+                    if (!Storage::exists($seasonFilePath)) {
+                        $this->getSeason($id, $titleInfo['number_of_seasons']);
+                    }
+                    // read season from storage
+                    $seasonRaw = Storage::get($seasonFilePath);
+                    $currentSeasonInfo = json_decode($seasonRaw, true);
+                    $releaseDate = $this->getNextEpisode($currentSeasonInfo);
+                    Release::firstOrCreate([
+                        'moviedb_id' => $id,
+                        'item_type_id' => $type,
+                        'release_date' => $releaseDate
+                    ]);
+                }
+
+                $jsonTitle = new JsonTitle(
+                    $titleInfo['id'],
+                    $titleInfo['name'],
+                    'https://image.tmdb.org/t/p/w200'. $titleInfo['poster_path'],
+                    'https://image.tmdb.org/t/p/w300'. $titleInfo['backdrop_path'],
+                    $releaseDate,
+                    $this->getReadableDate($releaseDate)
+                );
+                return $jsonTitle;
+                break;
+            case $movieTypeId:
+                $title = $this->getMovie($id);
+                break;
+        }
     }
 
     public function getTvSearch($query){
