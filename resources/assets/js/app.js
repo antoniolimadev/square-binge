@@ -19,3 +19,5 @@ import SearchBar from './components/SearchBar';
 import MovieWrapper from './components/MovieWrapper';
 import TvWrapper from './components/TvWrapper';
 import SearchWrapper from './components/SearchWrapper';
+import MinimalList from './components/MinimalList';
+import MinimalCard from './components/MinimalCard';
