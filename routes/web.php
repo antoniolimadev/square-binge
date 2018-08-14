@@ -20,7 +20,7 @@ Route::prefix('movies')->group(function () {
 });
 
 Route::prefix('user/{user}')->group(function () {
-    Route::get('/', 'HomeController@home');
+    Route::get('/', 'HomeController@profile');
     Route::get('/lists', 'UserListsController@lists');
+    Route::get('/lists/{list}', 'UserListsController@list');
 });
-Route::get('/lists/{list}', 'UserListsController@list');

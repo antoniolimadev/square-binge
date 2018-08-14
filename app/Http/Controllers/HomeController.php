@@ -36,4 +36,9 @@ class HomeController extends Controller
         return view('dashboard');
     }
 
+    public function profile($user_id)
+    {
+        return view('dashboard', compact('user_id'));
+    }
+
 }

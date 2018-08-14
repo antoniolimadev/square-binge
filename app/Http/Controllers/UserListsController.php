@@ -35,9 +35,9 @@ class UserListsController extends Controller
     }
 
     //user/{user}/lists
-    public function lists($id){
+    public function lists($user_id){
         // get all lists from user with $id
-        $userLists = User::find($id)->userLists();
+        $userLists = User::find($user_id)->userLists();
 
         foreach ($userLists as $list){
             $listItems = $this->getListItems($list->id);
@@ -46,13 +46,13 @@ class UserListsController extends Controller
             $list->setAttribute('total', $listItems->count());
         }
         //dd($userLists);
-        return view('lists.lists', compact('userLists'));
+        return view('lists.lists', compact('user_id', 'userLists'));
     }
 
     //user/{user}/lists/list_id
-    public function list($user_list_id){
+    public function list($user_id, $user_list_id){
         $listItems = $this->getListItems($user_list_id);
-        return view('lists.list', compact('listItems'));
+        return view('lists.list', compact('user_id','listItems'));
     }
 
     public function getListItems($listId){

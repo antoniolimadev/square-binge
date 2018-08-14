@@ -1,9 +1,11 @@
-@extends ('layouts.user')
+@extends ('layouts.master')
 
-@section('user-content')
+@section('content')
+    <div class="content-wrapper">
+        @include('components.usernavbar', compact('user_id'))
 
-    <div id="reactList"></div>
-
+        <div id="reactList"></div>
+    </div>
 @endsection
 @section('scripts')
     <script type="text/javascript">

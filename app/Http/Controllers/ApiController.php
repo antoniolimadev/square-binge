@@ -108,7 +108,7 @@ class ApiController extends Controller
             'owner_id' => $owner->id,
             'list_name' => $list->name,
             'list_id' => $list->id,
-            'private' => $list->private,
+            'private' => (boolean)$list->private,
             'last_updated' => $list->lastUpdated()
         ];
         $itemsArray = array();
