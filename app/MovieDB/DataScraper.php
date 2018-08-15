@@ -202,9 +202,9 @@ class DataScraper
                     ['moviedb_id', $id],
                     ['item_type_id', $type],
                 ])->get()->first();
-                // if no release date available
-                if ($release) {
-                    $releaseDate = $release->release_date;
+                // if release exists and is up to date
+                if ($release && Carbon::parse($release->release_date)->gte(Carbon::now())){
+                        $releaseDate = $release->release_date;
                 } else {
                     $seasonFilePath = 'squarebinge/shows/show-' . $id . '-last-season.json';
                     // if season file doesnt exist, request it
@@ -215,13 +215,19 @@ class DataScraper
                     $seasonRaw = Storage::get($seasonFilePath);
                     $currentSeasonInfo = json_decode($seasonRaw, true);
                     $releaseDate = $this->getNextEpisode($currentSeasonInfo);
-                    Release::firstOrCreate([
-                        'moviedb_id' => $id,
-                        'item_type_id' => $type,
-                        'release_date' => $releaseDate
-                    ]);
+                    // if release already existed, update it with the new date
+                    // otherwise, create a new one
+                    if ($release){
+                        $release->release_date = $releaseDate;
+                        $release->save();
+                    } else {
+                        Release::create([
+                            'moviedb_id' => $id,
+                            'item_type_id' => $type,
+                            'release_date' => $releaseDate
+                        ]);
+                    }
                 }
-
                 $jsonTitle = new JsonTitle(
                     $titleInfo['id'],
                     $titleInfo['name'],
