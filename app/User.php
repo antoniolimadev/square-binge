@@ -27,13 +27,20 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function rollApiKey(){
+        do{
+            $this->api_token = str_random(60);
+        }while($this->where('api_token', $this->api_token)->exists());
+        $this->save();
+    }
+
     public function userLists(){
         return $this->hasMany(UserList::class)->get();
     }
 
     public function following(){
-        $followingList = $this->hasMany(UserList::class)->where('name','Following')->get()->first();
-        return UserList::find($followingList->id)->items()->get();
+        return $this->hasMany(UserList::class)->where('name','Following')->get()->first();
+        //return UserList::find($followingList->id)->items()->get();
     }
 
     public function follow($id, $type){

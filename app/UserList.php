@@ -23,4 +23,12 @@ class UserList extends Model
             ->get()->first();
         return $lastItem->created_at->diffForHumans();
     }
+
+    public function contains($id, $type_id){
+        return $this->hasMany(ListItem::class)
+            ->where([
+                ['moviedb_id', $id],
+                ['item_type_id', $type_id],
+            ])->get()->first();
+    }
 }
