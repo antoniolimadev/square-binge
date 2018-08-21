@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -20,6 +23,13 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    // runs right after login
+    protected function authenticated(Request $request, $user)
+    {
+        $user = User::find(Auth::id());
+        $user->rollApiKey();
+        return back();
+    }
     /**
      * Where to redirect users after login.
      *

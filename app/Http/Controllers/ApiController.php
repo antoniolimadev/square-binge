@@ -7,6 +7,7 @@ use App\UserList;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\MovieDB\DataScraper;
+use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
@@ -114,12 +115,18 @@ class ApiController extends Controller
         $itemsArray = array();
         foreach ($listItems as $item){
             $itemInfo = $dataScraper->getSingleTitleInfo($item->moviedb_id, $item->item_type_id);
+            $follow = false;
+            if (Auth::guard('api')->check()){
+                $item = User::find(Auth::guard('api')->id())
+                    ->following()->contains($item->moviedb_id, $item->item_type_id);
+                if ($item){ $follow = true; }
+            }
             $jsonItem = [
                 'id' => $item->moviedb_id,
                 'name' => $itemInfo->name,
                 'date' => $itemInfo->readableReleaseDate,
                 'poster' => $itemInfo->poster,
-                'follow' => false
+                'follow' => (boolean) $follow,
             ];
             array_push($itemsArray, $jsonItem);
         }
@@ -132,7 +139,11 @@ class ApiController extends Controller
     public function buildJsonResponse($showsDataArray){
         $response = array();
         foreach ($showsDataArray as $show){
-            //array_push($headerLinks, ['link' => 'on-the-air', 'string' => 'On The Air']);
+            $follow = false;
+            if (Auth::guard('api')->check()){
+                $item = User::find(Auth::guard('api')->id())->following()->contains($show->id, 1);
+                if ($item){ $follow = true; }
+            }
             $jsonShow = [
                 'id' => $show->id,
                 'type' => 'tv',
@@ -140,7 +151,8 @@ class ApiController extends Controller
                 'cover' => $show->posterPath,
                 'title' => $show->name,
                 'year' => Carbon::parse($show->firstAirDate)->year,
-                'overview' => str_limit($show->overview,260)
+                'overview' => str_limit($show->overview,260),
+                'follow' => (boolean) $follow
             ];
             array_push($response, $jsonShow);
         }
