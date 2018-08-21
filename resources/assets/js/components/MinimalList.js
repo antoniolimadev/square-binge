@@ -8,7 +8,8 @@ class MinimalList extends Component {
         this.state = {
             listId: null,
             listDetails: null,
-            listItems: null
+            listItems: null,
+            userId: 0
         }
     }
 
@@ -27,18 +28,38 @@ class MinimalList extends Component {
     }
 
     componentDidMount() {
+        let api_token = document.head.querySelector('meta[name="api-token"]');
         let listid = this.getListId();
         this.setState({ listId: listid });
-        fetch('/square-binge/public/api/lists/' + listid)
+        if (api_token) {
+            fetch('/square-binge/public/api/lists/' + listid, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': ' application/json',
+                    'Authorization': 'Bearer ' + api_token.content
+                },
+            }).then(response => {
+                return response.json();
+            })
+                .then(list => {
+                    this.setState({
+                        listDetails: list.details,
+                        listItems: list.items
+                    });
+                });
+        } else {
+            fetch('/square-binge/public/api/lists/' + listid)
             .then(response => {
                 return response.json();
             })
-            .then(list => {
-                this.setState({
-                    listDetails: list.details,
-                    listItems: list.items
+                .then(list => {
+                    this.setState({
+                        listDetails: list.details,
+                        listItems: list.items
+                    });
                 });
-            });
+        }
     }
 
     render() {

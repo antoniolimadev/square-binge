@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ShowList from './ShowList';
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,6 +16,7 @@ class SearchBar extends React.Component {
     }
 
     componentDidMount() {
+        let api_token = document.head.querySelector('meta[name="api-token"]');
         // fetch header links from API
         fetch('/square-binge/public/api/' + this.state.source + 'headerLinks')
             .then(response => {
@@ -26,16 +27,35 @@ class SearchBar extends React.Component {
                     search: headerLinks.search
                 });
             });
-        // fetch default List
-        fetch('/square-binge/public/api/' + this.state.source + this.state.defaultList)
-            .then(response => {
-                return response.json();
+        if (api_token){
+            // fetch default List
+            fetch('/square-binge/public/api/' + this.state.source + this.state.defaultList, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': ' application/json',
+                    'Authorization': 'Bearer ' + api_token.content
+                },
             })
-            .then(showList => {
-                this.setState({ showList: showList,
-                    activeLink: this.state.activeLink
+                .then(response => {
+                    return response.json();
+                })
+                .then(showList => {
+                    this.setState({ showList: showList,
+                        activeLink: this.state.activeLink
+                    });
                 });
-            });
+        } else {
+            fetch('/square-binge/public/api/' + this.state.source + this.state.defaultList)
+                .then(response => {
+                    return response.json();
+                })
+                .then(showList => {
+                    this.setState({ showList: showList,
+                        activeLink: this.state.activeLink
+                    });
+                });
+        }
     }
     // build navbar with fetched header links and search input
     renderHeader() {
@@ -58,19 +78,42 @@ class SearchBar extends React.Component {
     }
     // click function for each header link
     handleClick(link, tab) {
+        let api_token = document.head.querySelector('meta[name="api-token"]');
         this.setState({ showList: null });
         /* showList is set to null so that the ShowList component is cleared and
         the loading animation is triggered again */
-        fetch('/square-binge/public/api/' + this.state.source + link)
-            .then(response => {
-                return response.json();
+        if (api_token) {
+            fetch('/square-binge/public/api/' + this.state.source + link, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': ' application/json',
+                    'Authorization': 'Bearer ' + api_token.content
+                },
             })
-            .then(showList => {
-                //Fetched posts is stored in the state
-                this.setState({ showList: showList,
-                    activeLink: tab
+                .then(response => {
+                    return response.json();
+                })
+                .then(showList => {
+                    //Fetched posts is stored in the state
+                    this.setState({
+                        showList: showList,
+                        activeLink: tab
+                    });
                 });
-            });
+        } else {
+            fetch('/square-binge/public/api/' + this.state.source + link)
+                .then(response => {
+                    return response.json();
+                })
+                .then(showList => {
+                    //Fetched posts is stored in the state
+                    this.setState({
+                        showList: showList,
+                        activeLink: tab
+                    });
+                });
+        }
     }
     // render the navbar and the ShowList component
     render() {

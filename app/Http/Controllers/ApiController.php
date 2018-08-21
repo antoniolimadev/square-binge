@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ItemType;
 use App\User;
 use App\UserList;
 use Carbon\Carbon;
@@ -117,12 +118,13 @@ class ApiController extends Controller
             $itemInfo = $dataScraper->getSingleTitleInfo($item->moviedb_id, $item->item_type_id);
             $follow = false;
             if (Auth::guard('api')->check()){
-                $item = User::find(Auth::guard('api')->id())
+                $itemFollowed = User::find(Auth::guard('api')->id())
                     ->following()->contains($item->moviedb_id, $item->item_type_id);
-                if ($item){ $follow = true; }
+                if ($itemFollowed){ $follow = true; }
             }
             $jsonItem = [
                 'id' => $item->moviedb_id,
+                'type' => ItemType::find($item->item_type_id)->get()->first()->keyword,
                 'name' => $itemInfo->name,
                 'date' => $itemInfo->readableReleaseDate,
                 'poster' => $itemInfo->poster,

@@ -11,7 +11,6 @@ class MinimalCard extends React.Component {
 
     follow(show, e) {
         e.preventDefault();
-        //TODO: change axios to fetch
         axios.post('http://localhost/square-binge/public/lists', {
             id: show.id,
             type: show.type
@@ -37,9 +36,12 @@ class MinimalCard extends React.Component {
                                     <span> ({this.state.show.date}) </span>
                                 </div>
                             </div>
-                            <a onClick={ (e) => this.follow(this.state.show, e) }
-                               href="#" className="list-button-follow">Follow
-                            </a>
+                            {this.state.show.follow
+                                ? <a onClick={(e) => this.follow(this.state.show, e)} href="#"
+                                     className="list-button-unfollow">Unfollow</a>
+                                : <a onClick={(e) => this.follow(this.state.show, e)} href="#"
+                                     className="list-button-follow">Follow</a>
+                            }
                         </div>
                     </div>
                 </div>

@@ -481,9 +481,7 @@ and the login form doesn't push anything out of its place
     position: absolute;
     float: right;
     background-color: transparent;
-    border: 1px solid $text-color-contrast;
     border-radius: 4px;
-    color: $text-color-contrast;
     padding: 5px 0;
     width: 110px;
     text-align: center;
@@ -498,17 +496,48 @@ and the login form doesn't push anything out of its place
     @extend %button-follow;
     margin-top: 130px;
     margin-left: 560px;
+    border: 1px solid $text-color-contrast;
+    color: $text-color-contrast;
+}
+
+.button-follow:hover {
+    border: 1px solid $flat-green-hover;
+    color: $flat-green-hover;
+}
+
+.button-unfollow {
+    @extend %button-follow;
+    margin-top: 130px;
+    margin-left: 560px;
+    //border: 1px solid $text-color-contrast;
+    color: $text-color-contrast;
+    background-color: $flat-green;
+}
+
+.button-unfollow:hover, .list-button-unfollow:hover {
+    color: $text-color-contrast;
+    background-color: $flat-green-hover;
 }
 
 .list-button-follow {
     @extend %button-follow;
     margin-top: 33px;
     margin-left: 560px;
+    border: 1px solid $text-color-contrast;
+    color: $text-color-contrast;
 }
 
-.button-follow:hover {
+.list-button-follow:hover {
     border: 1px solid $flat-green-hover;
     color: $flat-green-hover;
+}
+
+.list-button-unfollow {
+    @extend %button-follow;
+    margin-top: 33px;
+    margin-left: 560px;
+    color: $text-color-contrast;
+    background-color: $flat-green;
 }
 
 // SEARCH BAR COMPONENT

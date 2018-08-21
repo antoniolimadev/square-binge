@@ -8,6 +8,7 @@ use App\MovieDB\DataScraper;
 use Illuminate\Http\Request;
 use App\UserList;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserListsController extends Controller
 {
@@ -30,7 +31,7 @@ class UserListsController extends Controller
     public function store(){
         $id = request('id');
         $type = request('type');
-        User::find(auth()->id())->follow($id, $type);
+        User::find(Auth::guard('web')->id())->follow($id, $type);
         return response()->json('Followed', 201);
     }
 

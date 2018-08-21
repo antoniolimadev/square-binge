@@ -3,6 +3,7 @@
 <head>
     <title>Square Binge</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if (auth()->check()) <meta name="api-token" content="{{ auth()->user()->api_token }}"> @endif
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ url('/') }}/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
