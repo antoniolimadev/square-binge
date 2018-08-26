@@ -467,19 +467,38 @@ and the login form doesn't push anything out of its place
 .tvshow-overview {
     font-size: 13px;
     font-style: italic;
-
     padding: 5px 2px;
 }
 
 .tvshow-other {
     float: left;
     font-size: 15px;
-    padding: 7px 2px;
+    padding: 4px 2px;
+}
+
+.tvshow-card-footer {
+    display: inline-block;
+    text-align: right;
+    width: 530px;
+}
+
+.tvshow-options {
+    padding: 4px;
+    margin-left: 10px;
+    font-size: 17px;
+    color: #fff;
+    background-color: $flat-green;
+    border-radius: 4px;
+    text-align: center;
+    //right: 0;
+    //float: right;
+}
+.tvshow-options:hover {
+    background-color: $flat-green-hover;
+    color: #fff;
 }
 
 %button-follow {
-    position: absolute;
-    float: right;
     background-color: transparent;
     border-radius: 4px;
     padding: 5px 0;
@@ -494,50 +513,38 @@ and the login form doesn't push anything out of its place
 
 .button-follow {
     @extend %button-follow;
-    margin-top: 130px;
-    margin-left: 560px;
-    border: 1px solid $text-color-contrast;
     color: $text-color-contrast;
-}
-
-.button-follow:hover {
-    border: 1px solid $flat-green-hover;
-    color: $flat-green-hover;
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .button-unfollow {
     @extend %button-follow;
-    margin-top: 130px;
-    margin-left: 560px;
-    //border: 1px solid $text-color-contrast;
     color: $text-color-contrast;
     background-color: $flat-green;
+}
+
+.list-button-follow {
+    @extend %button-follow;
+    margin-top: -4px;
+    color: $text-color-contrast;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.list-button-unfollow {
+    @extend %button-follow;
+    margin-top: -4px;
+    color: $text-color-contrast;
+    background-color: $flat-green;
+}
+
+.button-follow:hover, .list-button-follow:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .button-unfollow:hover, .list-button-unfollow:hover {
     color: $text-color-contrast;
     background-color: $flat-green-hover;
-}
-
-.list-button-follow {
-    @extend %button-follow;
-    margin-top: 33px;
-    margin-left: 560px;
-    border: 1px solid $text-color-contrast;
-    color: $text-color-contrast;
-}
-
-.list-button-follow:hover {
-    border: 1px solid $flat-green-hover;
-    color: $flat-green-hover;
-}
-
-.list-button-unfollow {
-    @extend %button-follow;
-    margin-top: 33px;
-    margin-left: 560px;
-    color: $text-color-contrast;
-    background-color: $flat-green;
 }
 
 // SEARCH BAR COMPONENT

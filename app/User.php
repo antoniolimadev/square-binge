@@ -43,6 +43,7 @@ class User extends Authenticatable
         //return UserList::find($followingList->id)->items()->get();
     }
 
+    // follow or unfollow a title
     public function follow($id, $type){
         // user's following list id
         $followListId = $this->hasMany(UserList::class)
@@ -52,12 +53,23 @@ class User extends Authenticatable
         // item type id
         $typeId = ItemType::where('keyword', $type)->get()->first()->id;
 
-        // store the item if it doesn't exist
-        ListItem::firstOrCreate([
-           'user_list_id' => $followListId,
-           'moviedb_id' => $id,
-           'item_type_id' => $typeId
-        ]);
+        //find if user already follows the title
+        $item = ListItem::where([
+            ['user_list_id', $followListId],
+            ['moviedb_id', $id],
+            ['item_type_id', $typeId],
+        ])->get()->first();
+
+        if (!$item){
+            // store the item if it doesn't exist
+            ListItem::firstOrCreate([
+                'user_list_id' => $followListId,
+                'moviedb_id' => $id,
+                'item_type_id' => $typeId
+            ]);
+        } else{
+            ListItem::destroy($item->id);
+        }
     }
 
     public function watchlist(){

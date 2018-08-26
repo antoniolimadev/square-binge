@@ -5,12 +5,14 @@ class MinimalCard extends React.Component {
         super(props);
         this.state = {
             show: props.item,
-            response: null
+            response: null,
+            isFollowing: props.item.follow
         }
     }
 
     follow(show, e) {
         e.preventDefault();
+        this.setState({ isFollowing: !this.state.isFollowing });
         axios.post('http://localhost/square-binge/public/lists', {
             id: show.id,
             type: show.type
@@ -35,13 +37,16 @@ class MinimalCard extends React.Component {
                                     {this.state.show.name}
                                     <span> ({this.state.show.date}) </span>
                                 </div>
+                                <div className="tvshow-card-footer">
+                                    { this.state.isFollowing
+                                        ? <a onClick={ (e) => this.follow(this.state.show, e) }
+                                             href="#" className="list-button-unfollow"> <i className="fa fa-check-circle"></i> Following </a>
+                                        : <a onClick={ (e) => this.follow(this.state.show, e) }
+                                             href="#" className="list-button-follow">Follow </a>
+                                    }
+                                    <a href="#" className="tvshow-options"><i className="fa fa-ellipsis-h"></i></a>
+                                </div>
                             </div>
-                            {this.state.show.follow
-                                ? <a onClick={(e) => this.follow(this.state.show, e)} href="#"
-                                     className="list-button-unfollow">Unfollow</a>
-                                : <a onClick={(e) => this.follow(this.state.show, e)} href="#"
-                                     className="list-button-follow">Follow</a>
-                            }
                         </div>
                     </div>
                 </div>

@@ -5,13 +5,14 @@ class ShowCard extends React.Component {
         super(props);
         this.state = {
             show: props.show,
-            response: null
+            response: null,
+            isFollowing: props.show.follow
         }
     }
 
     follow(show, e) {
-        console.log(show);
         e.preventDefault();
+        this.setState({ isFollowing: !this.state.isFollowing });
         axios.post('http://localhost/square-binge/public/lists', {
             id: show.id,
             type: show.type
@@ -38,11 +39,16 @@ class ShowCard extends React.Component {
                                 </div>
                                 <div className="tvshow-overview"> {this.state.show.overview} </div>
                                 <div className="tvshow-other"> [more info]</div>
+                                <div className="tvshow-card-footer">
+                                    { this.state.isFollowing
+                                    ? <a onClick={ (e) => this.follow(this.state.show, e) }
+                                       href="#" className="button-unfollow"> <i className="fa fa-check-circle"></i> Following </a>
+                                    : <a onClick={ (e) => this.follow(this.state.show, e) }
+                                        href="#" className="button-follow">Follow </a>
+                                    }
+                                    <a href="#" className="tvshow-options"><i className="fa fa-ellipsis-h"></i></a>
+                                </div>
                             </div>
-                            { this.state.show.follow
-                                    ? <a onClick={ (e) => this.follow(this.state.show, e) } href="#" className="button-unfollow">Unfollow</a>
-                                    : <a onClick={ (e) => this.follow(this.state.show, e) } href="#" className="button-follow">Follow</a>
-                            }
                             {/*<a onClick={ (e) => this.follow(this.state.show, e) } href="#" className="button-follow">{followed}</a>*/}
                         </div>
                     </div>
