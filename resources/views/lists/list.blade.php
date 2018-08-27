@@ -3,8 +3,11 @@
 @section('content')
     <div class="content-wrapper">
         @include('components.usernavbar', compact('user_id'))
-
-        <div id="reactList"></div>
+        @if(!$hide)
+            <div id="reactList"></div>
+        @else
+            <div>This list is not public.</div>
+        @endif
     </div>
 @endsection
 @section('scripts')

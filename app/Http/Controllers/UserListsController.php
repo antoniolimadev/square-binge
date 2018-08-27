@@ -40,20 +40,40 @@ class UserListsController extends Controller
         // get all lists from user with $id
         $userLists = User::find($user_id)->userLists();
 
+        // filter private lists unless you're the owner
+        if(!(Auth::check() && Auth::id() == $user_id)){
+            // The filter method filters the collection using the given callback,
+            // keeping only those items that pass a given truth test
+            $userLists = $userLists->filter(function ($value, $key) {
+                return (boolean) $value->private == false;
+            });
+        }
         foreach ($userLists as $list){
             $listItems = $this->getListItems($list->id);
             $listThumbnails = $this->createThumbnailArray($listItems);
             $list->setAttribute('thumbnails', $listThumbnails);
             $list->setAttribute('total', $listItems->count());
         }
-        //dd($userLists);
         return view('lists.lists', compact('user_id', 'userLists'));
     }
 
     //user/{user}/lists/list_id
     public function list($user_id, $user_list_id){
-        $listItems = $this->getListItems($user_list_id);
-        return view('lists.list', compact('user_id','listItems'));
+        //$listItems = $this->getListItems($user_list_id);
+        $hide = false;
+        $list = UserList::find($user_list_id);
+        $listOwner = $list->user_id;
+
+        // if it's private, only its owner can see it
+        if ($list->private) {
+            if (Auth::check() &&
+                Auth::id() == $listOwner){
+                $hide = false;
+            } else{
+                $hide = true;
+            }
+        }
+        return view('lists.list', compact('user_id', 'hide'));
     }
 
     public function getListItems($listId){
