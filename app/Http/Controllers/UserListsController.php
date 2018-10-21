@@ -37,8 +37,12 @@ class UserListsController extends Controller
 
     //user/{user}/lists
     public function lists($user_id){
+
+        $user = User::find($user_id);
+        $userName = $user->name;
+
         // get all lists from user with $id
-        $userLists = User::find($user_id)->userLists();
+        $userLists = $user->userLists();
 
         // filter private lists unless you're the owner
         if(!(Auth::check() && Auth::id() == $user_id)){
@@ -54,7 +58,7 @@ class UserListsController extends Controller
             $list->setAttribute('thumbnails', $listThumbnails);
             $list->setAttribute('total', $listItems->count());
         }
-        return view('lists.lists', compact('user_id', 'userLists'));
+        return view('lists.lists', compact('user_id', 'userName', 'userLists'));
     }
 
     //user/{user}/lists/list_id

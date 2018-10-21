@@ -7,13 +7,13 @@
         <a href="{{ route('logout') }}"
            onclick="event.preventDefault();
            document.getElementById('logout-form').submit();">
-            <i class="fa fa-sign-out"></i> Logout
+            <i class="fa fa-sign-out-alt"></i> Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="invisible">
             @csrf
         </form>
     @else
-        <a href="#log-in" onclick="openLogin()"><i class="fa fa-sign-in"></i> Login </a>
+        <a href="#log-in" onclick="openLogin()"><i class="fa fa-sign-in-alt"></i> Login </a>
         <a href="{{ route('register') }}"><i class="fa fa-user"></i> Register </a>
     @endif
         <a href="{{ url('/') }}/tv"><i class="fa fa-tv"></i> TV </a>

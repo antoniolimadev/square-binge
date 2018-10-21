@@ -20,7 +20,8 @@ Route::prefix('movies')->group(function () {
 });
 
 Route::prefix('user/{user}')->group(function () {
-    Route::get('/', 'HomeController@profile');
+    //Route::get('/', 'HomeController@profile'); TODO: change back when dashboard is ready
+    Route::get('/', 'UserListsController@lists');
     Route::get('/lists', 'UserListsController@lists');
     Route::get('/lists/{list}', 'UserListsController@list');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MovieDB\DataScraper;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +42,10 @@ class HomeController extends Controller
 
     public function profile($user_id)
     {
-        return view('dashboard', compact('user_id'));
+        $userName = User::find($user_id)->name;
+
+
+        return view('dashboard', compact('user_id', 'userName'));
     }
 
 }
