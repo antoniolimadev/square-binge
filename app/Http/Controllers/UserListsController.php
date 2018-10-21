@@ -63,6 +63,10 @@ class UserListsController extends Controller
 
     //user/{user}/lists/list_id
     public function list($user_id, $user_list_id){
+
+        $user = User::find($user_id);
+        $userName = $user->name;
+
         //$listItems = $this->getListItems($user_list_id);
         $hide = false;
         $list = UserList::find($user_list_id);
@@ -77,7 +81,7 @@ class UserListsController extends Controller
                 $hide = true;
             }
         }
-        return view('lists.list', compact('user_id', 'hide'));
+        return view('lists.list', compact('user_id', 'userName', 'hide'));
     }
 
     public function getListItems($listId){
