@@ -788,6 +788,84 @@ and the login form doesn't push anything out of its place
     transition: background-color 0.2s linear;
 }
 
+// REGISTER FORM
+
+.register-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.register-form {
+    display: inline-block;
+    text-align: left;
+    border-radius: 8px;
+    padding: 20px 120px;
+    background-color: $component-background;
+    border-left: 2px solid $flat-green;
+    border-right: 2px solid $flat-green;
+    box-shadow: 0 4px 6px 0 rgba(0,0,0,0.16),
+    0 2px 4px 0 rgba(0,0,0,0.12);
+}
+
+.register-title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 3px;
+    margin-bottom: 10px;
+
+}
+
+.register-form label {
+    font-size: 12px;
+    display: block;
+    text-align: left;
+    padding-left: 6px;
+    color: $flat-green-hover;
+}
+
+.register-form input {
+    width: 256px;
+    padding: 10px;
+    border: 1px solid #24445A;
+    margin: 6px 4px;
+    font-size: 13px;
+    line-height: 17px;
+    border-radius: 3px;
+    background-color: $bg-color;
+    color: $text-color-contrast;
+}
+
+.register-button {
+    background-color: $flat-green;
+    color: white;
+    padding: 6px 18px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 4px;
+}
+
+.register-button:hover {
+    background-color: $flat-green-hover;
+    transition: background-color 0.2s linear;
+}
+
+.register-login {
+    margin-top: 30px;
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+}
+
+.register-login a {
+    color: $flat-green-hover;
+}
+
 // USERS
 
 .user-section {

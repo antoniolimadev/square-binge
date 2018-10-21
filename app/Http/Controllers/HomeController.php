@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MovieDB\DataScraper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,9 @@ class HomeController extends Controller
 
     public function home()
     {
-        return view('dashboard');
+        $user_id = Auth::id();
+
+        return view('dashboard', compact('user_id'));
     }
 
     public function profile($user_id)
