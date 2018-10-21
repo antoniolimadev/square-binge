@@ -157,8 +157,15 @@ class DataScraper
             ['moviedb_id', $id],
             ['item_type_id', $type],
         ])->get()->first();
+
         if ($releaseDate){
-            return $releaseDate->release_date;
+            // if episode is yet to air
+            if (Carbon::parse($releaseDate->release_date)->isFuture()){
+                return $releaseDate->release_date;
+            } else {
+                // delete release date
+                Release::destroy($releaseDate->id);
+            }
         }
         switch ($type) {
             case $tvTypeId:
