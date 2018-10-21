@@ -9,7 +9,7 @@
             </div>
             <div class="block-container">
                 @foreach($showArray as $show)
-                    <a href="{{ url('/') . '/show/' . $show->id }}">
+                    <a href="{{ 'https://www.themoviedb.org/tv/' . $show->id }}">
                         <div class="billboard-single-container">
                             <img src="{{ $show->bannerPath }}">
                             <div class="billboard-img-title">{{ $show->name }}</div>
@@ -24,7 +24,7 @@
             </div>
             <div class="block-container">
                 @foreach($movieArray as $movie)
-                    <a href="{{ url('/') . '/movie/' . $movie->id }}">
+                    <a href="{{ 'https://www.themoviedb.org/movie/' . $movie->id }}">
                         <div class="billboard-single-container">
                             <img src="{{ $movie->bannerPath }}">
                             <div class="billboard-img-title">{{ $movie->name }}</div>
