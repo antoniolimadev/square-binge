@@ -27,13 +27,24 @@ $button-hover-color: #1C2522;
 $margin-from-navbar: 50px;
 $overlap-offset: 120px;
 
+* {
+    box-sizing: border-box;
+}
+*:before, *:after {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    position: relative;
+}
+
 body {
     background-color: $bg-color;
     color: $text-color-contrast;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    //border-top: 2px solid $flat-green;
     text-align: center;
 }
 
@@ -45,6 +56,15 @@ a {
 a:hover {
     color: $flat-green-hover;
     transition: color 0.2s linear;
+}
+
+.main-container {
+
+    min-height: 100vh; /* will cover the 100% of viewport */
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 25px; /* height of your footer */
 }
 
 .content {
@@ -677,31 +697,26 @@ and the login form doesn't push anything out of its place
 
 // FOOTER
 .footer {
-    position: relative;
-    margin-top: -25px;
-    left: 0;
+    position: absolute;
     bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
     width: 100%;
-    clear: both;
+
     text-align: center;
     font-size: 13px;
     line-height: 25px;
-    height: 25px;
-    background-color: #ebe7d3;
-    color: #333;
+    background-color: #24445A;//#063F73;
+    color: $text-color-contrast;
 }
 
 .footer a {
-    color: #382110;
+    color: $text-color-contrast;
     text-decoration: underline;
 }
 
 .separator {
     margin: 0 6px;
     font-weight: bold;
-    color: #382110;
+    color: $text-color-contrast;
 }
 
 // LOGIN / REGISTER
