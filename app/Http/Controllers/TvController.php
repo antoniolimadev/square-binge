@@ -12,39 +12,11 @@ class TvController extends Controller
     protected $dataScraper;
 
     public function index(){
-        return redirect('tv/on-the-air');
+        return view('tv.home');
     }
 
-    public function onTheAir()
-    {
-        $dataScraper = new DataScraper();
-        $showsDataArray = $dataScraper->getOnTheAir(5);
-        //dd($showsDataArray);
-        $headerLink = 'On The Air';
-        return view('tv.on-the-air', compact('showsDataArray', 'headerLink'));
-    }
-
-    public function airingToday(){
-        $dataScraper = new DataScraper();
-        $showsDataArray = $dataScraper->getAiringToday(5);
-        //dd($showsDataArray);
-        $headerLink = 'Airing Today';
-        return view('tv.on-the-air', compact('showsDataArray', 'headerLink'));
-    }
-
-    public function popular(){
-        $dataScraper = new DataScraper();
-        $showsDataArray = $dataScraper->getPopularShows(5);
-        //dd($showsDataArray);
-        $headerLink = 'Popular';
-        return view('tv.on-the-air', compact('showsDataArray', 'headerLink'));
-    }
-
-    public function topRated(){
-        $dataScraper = new DataScraper();
-        $showsDataArray = $dataScraper->getTopRatedShows(5);
-        //dd($showsDataArray);
-        $headerLink = 'Top Rated';
-        return view('tv.on-the-air', compact('showsDataArray', 'headerLink'));
+    public function search(){
+        $query = trim(request(['query'])['query']);
+        return view('tv.search', compact('query'));
     }
 }
