@@ -17,7 +17,7 @@
                     <span>({{ \Carbon\Carbon::parse($year)->year }})</span>
                 </div>
                 @if(strlen($overview) > 2350)
-                    <div class="tvshow-overview"> {{ $overview }} </div>
+                    <div class="tvshow-overview"> {{ str_limit($overview,235) }} </div>
                 @else
                     <div class="tvshow-overview"> {{ $overview }} </div>
                 @endif

@@ -3,25 +3,14 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
 Route::get('/movies', 'HomeController@movies');
-Route::get('/home', 'HomeController@home');
-Route::get('/lists', 'UserListsController@index');
-Route::post('/lists', 'UserListsController@store');
+Route::get('/home', 'HomeController@home')->name('home');
 
 Route::prefix('tv')->group(function () {
-    Route::get('/', 'TvController@index')->name('television');
-    Route::get('/search', 'TvController@search');
-});
-
-Route::prefix('movies')->group(function () {
-    Route::get('/', 'MovieController@index')->name('movies');
-    Route::get('/search', 'MovieController@search');
-});
-
-Route::prefix('user/{user}')->group(function () {
-    //Route::get('/', 'HomeController@profile'); TODO: change back when dashboard is ready
-    Route::get('/', 'UserListsController@lists');
-    Route::get('/lists', 'UserListsController@lists');
-    Route::get('/lists/{list}', 'UserListsController@list');
+    Route::get('/', 'TvController@index');
+    Route::get('/on-the-air', 'TvController@onTheAir');
+    Route::get('/airing-today', 'TvController@airingToday');
+    Route::get('/popular', 'TvController@popular');
+    Route::get('/top-rated', 'TvController@topRated');
 });
